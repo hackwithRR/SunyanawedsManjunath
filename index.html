@@ -678,7 +678,7 @@
 
     .story-journey {
       position: relative;
-      height: 250svh;
+      height: 280svh;
       background: var(--forest-deep);
       color: var(--paper);
     }
@@ -740,12 +740,26 @@
       align-items: center;
       gap: clamp(32px, 7vw, 96px);
       opacity: var(--scene-opacity, 0);
-      transform: translate3d(0, var(--scene-y, 24px), 0) scale(var(--scene-scale, .97));
+      transform: translate3d(var(--scene-x, 0px), var(--scene-y, 24px), 0) rotateZ(var(--scene-rotate, 0deg)) scale(var(--scene-scale, .97));
+      filter: blur(var(--scene-blur, 0px));
       will-change: opacity, transform;
       pointer-events: none;
     }
     .journey-scene.is-active { --scene-opacity: 1; --scene-y: 0px; --scene-scale: 1; }
-    .journey-copy { min-width: 0; max-width: 430px; }
+    .journey-copy {
+      min-width: 0;
+      max-width: 430px;
+      opacity: var(--copy-opacity, 1);
+      filter: blur(var(--copy-blur, 0px));
+      transform: translate3d(var(--copy-x, 0px), var(--copy-y, 0px), 0);
+      will-change: opacity, transform, filter;
+    }
+    .journey-copy > * {
+      opacity: var(--copy-element-opacity, 1);
+      filter: none;
+      transform: translate3d(0, var(--copy-element-y, 0px), 0);
+      will-change: opacity, transform;
+    }
     .journey-number { display: block; margin-bottom: 22px; color: #e5b478; font: italic 19px var(--serif); }
     .journey-copy h3 { margin: 0 0 20px; font: 400 clamp(42px, 5.7vw, 74px)/1.02 var(--serif); letter-spacing: -.045em; }
     .journey-copy h3 em { color: #e8bc83; font-weight: 400; }
@@ -755,11 +769,15 @@
       height: min(65vh, 590px);
       min-height: 360px;
       overflow: hidden;
+      clip-path: inset(var(--image-clip, 7% 5% 3%) round 48% 48% 3px 3px);
       border: 1px solid rgba(229,180,120,.55);
       border-radius: 48% 48% 3px 3px;
       background: #647a69;
       box-shadow: 0 30px 90px rgba(0,0,0,.24);
+      transform: translate3d(var(--image-x, 0px), var(--image-y, 0px), 0) scale(var(--image-scale, 1));
+      will-change: clip-path, transform;
     }
+    .journey-scene.is-active .journey-image { box-shadow: 0 36px 100px rgba(0,0,0,.3); }
     .journey-image::after {
       position: absolute;
       inset: 12px;
@@ -820,6 +838,30 @@
       letter-spacing: .14em;
       text-transform: uppercase;
     }
+    html[lang="kn"] .hero h1,
+    html[lang="kn"] .section-title,
+    html[lang="kn"] .journey-copy h3,
+    html[lang="kn"] .venue-copy h2,
+    html[lang="kn"] .event-card h3,
+    html[lang="kn"] .countdown h2 {
+      line-height: 1.45;
+      letter-spacing: 0;
+    }
+    html[lang="kn"] .hero-invocation,
+    html[lang="kn"] .hero-subtitle,
+    html[lang="kn"] .hero-date,
+    html[lang="kn"] .hero-family p,
+    html[lang="kn"] .journey-copy p,
+    html[lang="kn"] .event-card p,
+    html[lang="kn"] .rsvp-intro {
+      line-height: 1.9;
+    }
+    html[lang="kn"] .hero-family span,
+    html[lang="kn"] .field label,
+    html[lang="kn"] .attendance-field legend { line-height: 1.7; }
+    html[lang="kn"] .button,
+    html[lang="kn"] .gate-open,
+    html[lang="kn"] .language-choice { line-height: 1.6; }
 
     .events { background: #e9e9da; }
     .events .section-inner { max-width: 1020px; }
@@ -1049,9 +1091,88 @@
     }
     .countdown .section-label { color: #f4d5a5; }
     .countdown h2 { margin-bottom: 30px; font: 400 clamp(32px, 4vw, 48px) var(--serif); }
-    .timer { display: flex; justify-content: center; gap: clamp(22px, 5vw, 66px); }
-    .timer-item { min-width: 56px; }
-    .timer-number { display: block; font: 400 clamp(35px, 5vw, 56px)/1 var(--serif); }
+    .timer {
+      display: grid;
+      width: min(100%, 1000px);
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      align-items: start;
+      gap: clamp(8px, 3vw, 40px);
+      margin-inline: auto;
+    }
+    .timer-item { min-width: 0; }
+    .timer-number {
+      display: flex;
+      min-height: 1.12em;
+      align-items: center;
+      justify-content: center;
+      gap: .045em;
+      perspective: 700px;
+      font: 400 clamp(35px, 5vw, 56px)/1 var(--serif);
+      font-variant-numeric: tabular-nums;
+    }
+    .flip-digit {
+      position: relative;
+      display: block;
+      width: .66em;
+      height: 1.12em;
+      border: 1px solid rgba(255,239,210,.32);
+      border-radius: .09em;
+      background: linear-gradient(145deg, rgba(91,48,46,.78), rgba(62,39,42,.9));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 8px 18px rgba(49,25,26,.17);
+      color: #fff7e9;
+      font: inherit;
+      font-variant-numeric: tabular-nums;
+      line-height: 1;
+      transform-style: preserve-3d;
+    }
+    .flip-digit::after {
+      position: absolute;
+      z-index: 4;
+      top: 50%;
+      right: 0;
+      left: 0;
+      height: 1px;
+      background: rgba(31,35,31,.38);
+      box-shadow: 0 1px 0 rgba(255,255,255,.12);
+      content: "";
+    }
+    .flip-face {
+      position: absolute;
+      right: 0;
+      left: 0;
+      overflow: hidden;
+      backface-visibility: hidden;
+      transform-style: preserve-3d;
+    }
+    .flip-face > span {
+      position: absolute;
+      left: 0;
+      display: grid;
+      width: 100%;
+      height: 200%;
+      place-items: center;
+      line-height: 1;
+    }
+    .flip-top {
+      top: 0;
+      height: 50%;
+      transform-origin: center bottom;
+    }
+    .flip-top > span { top: 0; }
+    .flip-bottom {
+      bottom: 0;
+      height: 50%;
+      transform-origin: center top;
+    }
+    .flip-bottom > span { top: -100%; }
+    .flip-old-bottom { z-index: 1; }
+    .flip-next-top { z-index: 2; }
+    .flip-old-top { z-index: 3; }
+    .flip-next-bottom { z-index: 4; transform: rotateX(90deg); }
+    .flip-digit.is-flipping .flip-old-top { animation: flip-digit-out .24s cubic-bezier(.45,0,.8,.3) both; }
+    .flip-digit.is-flipping .flip-next-bottom { animation: flip-digit-in .26s .24s cubic-bezier(.16,1,.3,1) both; }
+    @keyframes flip-digit-out { to { transform: rotateX(-90deg); filter: brightness(.7); } }
+    @keyframes flip-digit-in { to { transform: rotateX(0); filter: brightness(1); } }
     .timer-label { display: block; margin-top: 10px; color: rgba(255,253,247,.76); font-size: 9px; letter-spacing: .17em; text-transform: uppercase; }
     .timer-message { margin: 25px 0 0; font: italic 16px var(--serif); color: rgba(255,253,247,.82); }
 
@@ -1198,7 +1319,7 @@
       .temple-detail small { font-size: 7px; }
       .temple-location { top: 1%; right: 2%; font-size: 7px; }
       .scroll-cue { left: 25px; bottom: 20px; }
-      .story-journey { height: 240svh; }
+      .story-journey { height: 280svh; }
       .journey-sticky { min-height: 100svh; }
       .journey-heading { top: 82px; left: 24px; }
       .journey-scenes { width: calc(100% - 48px); height: min(76svh, 670px); margin-top: 34px; }
@@ -1243,8 +1364,14 @@
       .journey-sticky::after { right: 0; width: 240px; height: 240px; }
       .journey-scenes { display: grid; height: auto; grid-template-columns: minmax(0, 1fr); gap: 30px; }
       .journey-scene { position: relative; inset: auto; display: grid; width: 100%; min-width: 0; grid-template-columns: 1fr 1fr; gap: 24px; opacity: 1 !important; transform: none !important; pointer-events: auto; }
+      .journey-copy, .journey-copy > * { opacity: 1 !important; filter: none !important; transform: none !important; }
+      .journey-image { clip-path: none !important; }
       .journey-image { height: 380px; min-height: 0; }
       .journey-scroll-note { display: none; }
+      .flip-digit.is-flipping .flip-old-top,
+      .flip-digit.is-flipping .flip-next-top,
+      .flip-digit.is-flipping .flip-next-bottom { animation: none; }
+      .flip-next-top, .flip-next-bottom { transform: none; }
     }
     @media (max-width: 760px) and (prefers-reduced-motion: reduce) {
       .journey-scenes { width: calc(100% - 48px); }
@@ -1702,7 +1829,7 @@
       transition: box-shadow .5s ease;
     }
     .journey-image[data-scroll-depth] {
-      transform: perspective(1200px) translate3d(0,var(--scroll-depth-y,0px),0) rotateX(var(--scroll-tilt-x,0deg));
+      transform: perspective(1200px) translate3d(var(--image-x,0px),calc(var(--image-y,0px) + var(--scroll-depth-y,0px)),0) rotateX(var(--scroll-tilt-x,0deg)) scale(var(--image-scale,1));
       transition: box-shadow .6s ease;
     }
     .gallery-item:hover { transform: perspective(800px) rotateX(calc(var(--tilt-x) + var(--scroll-tilt-x,0deg) - 2deg)) rotateY(calc(var(--tilt-y) + 2deg)) translateY(calc(var(--scroll-depth-y,0px) - 5px)); box-shadow: 0 22px 48px rgba(36,53,47,.18); }
@@ -1913,7 +2040,7 @@
       .section-label { margin-bottom: 12px; font-size: 8px; letter-spacing: .16em; }
       .section-title { margin-bottom: 16px; font-size: clamp(34px, 9vw, 46px); }
       .intro-copy { font-size: 15px; line-height: 1.8; }
-      .story-journey { height: 225svh; }
+      .story-journey { height: 280svh; }
       .journey-sticky { min-height: 100svh; }
       .journey-heading { top: 76px; right: 20px; left: 20px; font-size: 8px; letter-spacing: .12em; }
       .journey-heading span { margin-right: 7px; }
@@ -2237,6 +2364,7 @@
       .kalamkari-disc-middle { transform: translate(-50%, -50%) rotateX(35deg) rotateY(1deg) rotateZ(3deg) translateZ(20px); }
       .kalamkari-disc-inner { transform: translate(-50%, -50%) rotateX(16deg) rotateY(.5deg) rotateZ(1deg) translateZ(48px); }
     }
+    .hero h1 { font-weight: 600; }
     .hero h1 span { font: inherit; letter-spacing: inherit; color: inherit; font-style: normal; }
     body { font-size: 16px; }
     .nav-links a, .language-switch { font-size: 12px; }
@@ -2391,7 +2519,7 @@
       clip-path: inset(50%);
     }
     @media (max-width: 760px) {
-      .story-journey { height: 225svh; }
+      .story-journey { height: 280svh; }
       .journey-sticky { min-height: 100svh; }
       .journey-scenes { height: min(68svh, 570px); margin-top: 24px; }
       .hero-invocation {
@@ -2580,6 +2708,34 @@
       .language-panel { padding-right: 16px; padding-left: 16px; }
       .language-choice { font-size: 17px; }
       .language-choice span { font-size: 13px; }
+    }
+    @media (max-width: 760px) {
+      html[lang="kn"] .hero h1,
+      html[lang="kn"] .section-title,
+      html[lang="kn"] .journey-copy h3,
+      html[lang="kn"] .venue-copy h2,
+      html[lang="kn"] .event-card h3,
+      html[lang="kn"] .countdown h2 { line-height: 1.4; }
+      html[lang="kn"] .journey-heading { top: 52px; }
+      html[lang="kn"] .journey-scenes {
+        height: min(76svh, 640px);
+        margin-top: 40px;
+      }
+      html[lang="kn"] .journey-copy h3 {
+        margin-bottom: 18px;
+        font-size: clamp(27px, 7.5vw, 34px);
+      }
+      html[lang="kn"] .journey-copy p { font-size: 16px; line-height: 1.75; }
+      html[lang="kn"] .journey-image,
+      html[lang="kn"] .journey-image[data-scroll-depth] {
+        height: min(27svh, 230px);
+        min-height: 170px;
+      }
+      html[lang="kn"] .journey-image figcaption { font-size: 14px; line-height: 1.6; }
+      html[lang="kn"] .hero-family p { font-size: 14px; line-height: 1.85; }
+      html[lang="kn"] .hero-date { font-size: 12px; line-height: 1.7; }
+      html[lang="kn"] .event-card p,
+      html[lang="kn"] .rsvp-intro { font-size: 16px; line-height: 1.8; }
     }
     @media (prefers-reduced-motion: reduce) {
       .page-background-video { display: none; }
@@ -3279,21 +3435,66 @@
         const segmentStart = Math.min(journeyScenes.length - 2, Math.floor(scenePosition));
         const segmentProgress = Math.min(1, scenePosition - segmentStart);
         const easedProgress = segmentProgress * segmentProgress * (3 - 2 * segmentProgress);
+        const sceneTravel = mobileDepth ? Math.min(96, window.innerWidth * .24) : 58;
+        const verticalTravel = mobileDepth ? 20 : 10;
         journey.style.setProperty("--journey-progress", String(journeyProgress));
         journeyCurrent.textContent = String(activeIndex + 1).padStart(2, "0");
 
         journeyScenes.forEach((scene, index) => {
-          const opacity = index === segmentStart
-            ? 1 - easedProgress
-            : index === segmentStart + 1 ? easedProgress : 0;
+          const direction = index % 2 === 0 ? 1 : -1;
+          const isOutgoing = index === segmentStart;
+          const isIncoming = index === segmentStart + 1;
+          const opacity = isOutgoing ? 1 - easedProgress : isIncoming ? easedProgress : 0;
+          const sceneProgress = isOutgoing ? easedProgress : isIncoming ? 1 - easedProgress : 1;
+          const slideDirection = isOutgoing ? -direction : direction;
+          const copyOpacity = isOutgoing || isIncoming ? 1 : 0;
+          const horizontalOffset = isOutgoing
+            ? -direction * sceneTravel * easedProgress
+            : isIncoming ? direction * sceneTravel * (1 - easedProgress) : direction * sceneTravel;
+          const imageProgress = isOutgoing
+            ? Math.max(0, Math.min(1, (segmentProgress - .12) / .76))
+            : isIncoming ? Math.max(0, Math.min(1, (segmentProgress - .08) / .82)) : 0;
+          const imageEased = imageProgress * imageProgress * (3 - 2 * imageProgress);
+          const imageInset = `${((1 - imageEased) * 100).toFixed(1)}%`;
+          const imageClip = isOutgoing
+            ? direction > 0 ? `0 ${imageEased * 100}% 0 0` : `0 0 0 ${imageEased * 100}%`
+            : isIncoming
+              ? direction > 0 ? `0 ${imageInset} 0 0` : `0 0 0 ${imageInset}`
+              : "0 100% 0 0";
+          const staggerStarts = [.21, .27, .33];
+          const copyParts = [...scene.querySelector(".journey-copy").children];
+
+          copyParts.forEach((part, partIndex) => {
+            let partProgress = 0;
+            if (isOutgoing) {
+              const phase = Math.max(0, Math.min(1, (segmentProgress - staggerStarts[partIndex]) / .27));
+              partProgress = 1 - phase * phase * (3 - 2 * phase);
+            } else if (isIncoming) {
+              const phase = Math.max(0, Math.min(1, (segmentProgress - (.49 + partIndex * .06)) / .3));
+              partProgress = phase * phase * (3 - 2 * phase);
+            }
+            part.style.setProperty("--copy-element-opacity", partProgress.toFixed(3));
+            const elementTravel = isOutgoing ? -12 * (1 - partProgress) : 16 * (1 - partProgress);
+            part.style.setProperty("--copy-element-y", `${elementTravel.toFixed(1)}px`);
+          });
+
           scene.style.setProperty("--scene-opacity", opacity.toFixed(3));
-          const verticalOffset = index === segmentStart
-            ? -12 * easedProgress
-            : index === segmentStart + 1 ? 12 * (1 - easedProgress) : 0;
-          scene.style.setProperty("--scene-y", `${verticalOffset.toFixed(1)}px`);
-          scene.style.setProperty("--scene-scale", "1");
+          scene.style.setProperty("--scene-x", `${horizontalOffset.toFixed(1)}px`);
+          scene.style.setProperty("--scene-y", `${(slideDirection * verticalTravel * sceneProgress).toFixed(1)}px`);
+          scene.style.setProperty("--scene-rotate", `${(slideDirection * .7 * sceneProgress).toFixed(2)}deg`);
+          scene.style.setProperty("--scene-scale", (1 - .025 * sceneProgress).toFixed(3));
+          scene.style.setProperty("--scene-blur", `${(2.4 * (1 - opacity)).toFixed(2)}px`);
+          const copy = scene.querySelector(".journey-copy");
+          copy.style.setProperty("--copy-opacity", copyOpacity.toFixed(3));
+          copy.style.setProperty("--copy-x", `${(slideDirection * 18 * (1 - copyOpacity)).toFixed(1)}px`);
+          copy.style.setProperty("--copy-y", `${(12 * (1 - copyOpacity)).toFixed(1)}px`);
+          copy.style.setProperty("--copy-blur", `${(2 * (1 - copyOpacity)).toFixed(2)}px`);
+          scene.querySelector(".journey-image").style.setProperty("--image-clip", imageClip);
+          scene.querySelector(".journey-image").style.setProperty("--image-x", `${(-direction * 12 * imageEased).toFixed(1)}px`);
+          scene.querySelector(".journey-image").style.setProperty("--image-y", `${(8 * (1 - imageEased)).toFixed(1)}px`);
+          scene.querySelector(".journey-image").style.setProperty("--image-scale", (1.04 - .04 * imageEased).toFixed(3));
           scene.classList.toggle("is-active", index === activeIndex);
-          scene.setAttribute("aria-hidden", String(opacity < 0.5));
+          scene.setAttribute("aria-hidden", String(Math.max(...copyParts.map((part) => Number(part.style.getPropertyValue("--copy-element-opacity")))) < 0.5));
         });
       }
       scrollFrame = 0;
@@ -3365,17 +3566,78 @@
     };
     const timerMessage = document.getElementById("timer-message");
 
+    function createFlipDigit(value) {
+      const digit = document.createElement("span");
+      digit.className = "flip-digit";
+      digit.dataset.value = value;
+      digit.setAttribute("aria-hidden", "true");
+
+      [
+        ["flip-face flip-top flip-old-top", value],
+        ["flip-face flip-bottom flip-old-bottom", value],
+        ["flip-face flip-top flip-next-top", value],
+        ["flip-face flip-bottom flip-next-bottom", value]
+      ].forEach(([className, character]) => {
+        const face = document.createElement("span");
+        const faceValue = document.createElement("span");
+        face.className = className;
+        faceValue.textContent = character;
+        face.append(faceValue);
+        digit.append(face);
+      });
+
+      const incomingBottom = digit.querySelector(".flip-next-bottom");
+      incomingBottom.addEventListener("animationend", (event) => {
+        if (event.target !== incomingBottom || event.animationName !== "flip-digit-in") return;
+        const finalValue = digit.dataset.nextValue;
+        digit.querySelectorAll(".flip-face > span").forEach((face) => { face.textContent = finalValue; });
+        digit.dataset.value = finalValue;
+        digit.classList.remove("is-flipping");
+      });
+      return digit;
+    }
+
+    function updateFlipNumber(node, value) {
+      const label = node.parentElement.querySelector(".timer-label").textContent;
+      node.setAttribute("role", "img");
+      node.setAttribute("aria-label", `${value} ${label}`);
+      if (node.dataset.value === value) return;
+
+      const digits = [...value];
+      if (node.children.length !== digits.length) {
+        node.replaceChildren(...digits.map(createFlipDigit));
+        node.dataset.value = value;
+        return;
+      }
+
+      digits.forEach((character, index) => {
+        const digit = node.children[index];
+        if (digit.dataset.value === character) return;
+        if (reducedMotion || document.hidden) {
+          digit.classList.remove("is-flipping");
+          digit.querySelectorAll(".flip-face > span").forEach((face) => { face.textContent = character; });
+          digit.dataset.value = character;
+          return;
+        }
+        digit.dataset.nextValue = character;
+        digit.querySelector(".flip-next-top > span").textContent = character;
+        digit.querySelector(".flip-next-bottom > span").textContent = character;
+        digit.classList.add("is-flipping");
+      });
+      node.dataset.value = value;
+    }
+
     function updateCountdown() {
       const remaining = weddingDate - Date.now();
       if (remaining <= 0) {
-        Object.values(timerNodes).forEach((node) => { node.textContent = "0"; });
+        Object.values(timerNodes).forEach((node) => updateFlipNumber(node, "0"));
         timerMessage.textContent = translate("weddingDayMessage");
         return;
       }
-      timerNodes.days.textContent = String(Math.floor(remaining / 86400000));
-      timerNodes.hours.textContent = String(Math.floor((remaining / 3600000) % 24)).padStart(2, "0");
-      timerNodes.minutes.textContent = String(Math.floor((remaining / 60000) % 60)).padStart(2, "0");
-      timerNodes.seconds.textContent = String(Math.floor((remaining / 1000) % 60)).padStart(2, "0");
+      updateFlipNumber(timerNodes.days, String(Math.floor(remaining / 86400000)));
+      updateFlipNumber(timerNodes.hours, String(Math.floor((remaining / 3600000) % 24)).padStart(2, "0"));
+      updateFlipNumber(timerNodes.minutes, String(Math.floor((remaining / 60000) % 60)).padStart(2, "0"));
+      updateFlipNumber(timerNodes.seconds, String(Math.floor((remaining / 1000) % 60)).padStart(2, "0"));
     }
 
     updateCountdown();
