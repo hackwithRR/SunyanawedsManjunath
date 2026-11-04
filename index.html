@@ -1090,90 +1090,41 @@
       pointer-events: none;
     }
     .countdown .section-label { color: #f4d5a5; }
-    .countdown h2 { margin-bottom: 30px; font: 400 clamp(32px, 4vw, 48px) var(--serif); }
+    .countdown h2 { margin-bottom: 40px; font: 400 clamp(32px, 4vw, 48px) var(--serif); }
     .timer {
       display: grid;
-      width: min(100%, 1000px);
+      width: min(100%, 980px);
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      align-items: start;
-      gap: clamp(8px, 3vw, 40px);
+      align-items: center;
+      gap: clamp(8px, 3vw, 44px);
       margin-inline: auto;
     }
-    .timer-item { min-width: 0; }
-    .timer-number {
-      display: flex;
-      min-height: 1.12em;
-      align-items: center;
-      justify-content: center;
-      gap: .045em;
-      perspective: 700px;
-      font: 400 clamp(35px, 5vw, 56px)/1 var(--serif);
-      font-variant-numeric: tabular-nums;
+    .timer-item {
+      display: grid;
+      min-width: 0;
+      justify-items: center;
+      align-content: start;
+      text-align: center;
     }
-    .flip-digit {
-      position: relative;
-      display: block;
-      width: .66em;
-      height: 1.12em;
-      border: 1px solid rgba(255,239,210,.32);
-      border-radius: .09em;
-      background: linear-gradient(145deg, rgba(91,48,46,.78), rgba(62,39,42,.9));
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 8px 18px rgba(49,25,26,.17);
-      color: #fff7e9;
-      font: inherit;
-      font-variant-numeric: tabular-nums;
-      line-height: 1;
-      transform-style: preserve-3d;
-    }
-    .flip-digit::after {
-      position: absolute;
-      z-index: 4;
-      top: 50%;
-      right: 0;
-      left: 0;
+    .timer-item::before {
+      width: 30px;
       height: 1px;
-      background: rgba(31,35,31,.38);
-      box-shadow: 0 1px 0 rgba(255,255,255,.12);
+      margin-bottom: 13px;
+      background: linear-gradient(90deg, transparent, #f4d5a5, transparent);
       content: "";
     }
-    .flip-face {
-      position: absolute;
-      right: 0;
-      left: 0;
-      overflow: hidden;
-      backface-visibility: hidden;
-      transform-style: preserve-3d;
+    .timer-number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      justify-self: stretch;
+      color: #fff8eb;
+      font: 400 clamp(40px, 5.2vw, 62px)/1.08 var(--serif);
+      font-variant-numeric: tabular-nums;
+      letter-spacing: .015em;
+      text-shadow: 0 3px 20px rgba(84,39,34,.18);
     }
-    .flip-face > span {
-      position: absolute;
-      left: 0;
-      display: grid;
-      width: 100%;
-      height: 200%;
-      place-items: center;
-      line-height: 1;
-    }
-    .flip-top {
-      top: 0;
-      height: 50%;
-      transform-origin: center bottom;
-    }
-    .flip-top > span { top: 0; }
-    .flip-bottom {
-      bottom: 0;
-      height: 50%;
-      transform-origin: center top;
-    }
-    .flip-bottom > span { top: -100%; }
-    .flip-old-bottom { z-index: 1; }
-    .flip-next-top { z-index: 2; }
-    .flip-old-top { z-index: 3; }
-    .flip-next-bottom { z-index: 4; transform: rotateX(90deg); }
-    .flip-digit.is-flipping .flip-old-top { animation: flip-digit-out .24s cubic-bezier(.45,0,.8,.3) both; }
-    .flip-digit.is-flipping .flip-next-bottom { animation: flip-digit-in .26s .24s cubic-bezier(.16,1,.3,1) both; }
-    @keyframes flip-digit-out { to { transform: rotateX(-90deg); filter: brightness(.7); } }
-    @keyframes flip-digit-in { to { transform: rotateX(0); filter: brightness(1); } }
-    .timer-label { display: block; margin-top: 10px; color: rgba(255,253,247,.76); font-size: 9px; letter-spacing: .17em; text-transform: uppercase; }
+    .timer-label { display: block; margin-top: 11px; color: rgba(255,253,247,.82); font-size: 10px; letter-spacing: .19em; text-transform: uppercase; }
     .timer-message { margin: 25px 0 0; font: italic 16px var(--serif); color: rgba(255,253,247,.82); }
 
     .gallery { background: var(--paper); }
@@ -1346,8 +1297,7 @@
       .temple-frame { width: min(76%, 290px); aspect-ratio: .84; }
       .rsvp-form { grid-template-columns: 1fr; }
       .field.full, .rsvp-submit, .form-status { grid-column: 1; }
-      .timer { gap: 16px; }
-      .timer-item { min-width: 50px; }
+      .timer { gap: 12px; }
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
@@ -1368,10 +1318,6 @@
       .journey-image { clip-path: none !important; }
       .journey-image { height: 380px; min-height: 0; }
       .journey-scroll-note { display: none; }
-      .flip-digit.is-flipping .flip-old-top,
-      .flip-digit.is-flipping .flip-next-top,
-      .flip-digit.is-flipping .flip-next-bottom { animation: none; }
-      .flip-next-top, .flip-next-bottom { transform: none; }
     }
     @media (max-width: 760px) and (prefers-reduced-motion: reduce) {
       .journey-scenes { width: calc(100% - 48px); }
@@ -1613,10 +1559,9 @@
       .section { padding: 76px 19px; }
       .event-card { min-height: 205px; }
       .gallery-grid { grid-template-rows: 155px 130px 160px; }
-      .timer { gap: 13px; }
-      .timer-item { min-width: 48px; }
-      .timer-number { font-size: 34px; }
-      .timer-label { font-size: 8px; }
+      .timer { gap: 10px; }
+      .timer-number { font-size: clamp(32px, 8vw, 42px); }
+      .timer-label { font-size: 9px; letter-spacing: .12em; }
       .rsvp-form { padding: 20px 16px; }
     }
     @media (min-width: 761px) and (max-width: 940px) {
@@ -2124,10 +2069,9 @@
       .countdown { padding: 60px 20px; }
       .countdown::before { inset: 9px; }
       .countdown h2 { margin-bottom: 22px; font-size: 30px; }
-      .timer { gap: clamp(12px, 5vw, 24px); }
-      .timer-item { min-width: 43px; }
-      .timer-number { font-size: clamp(30px, 8vw, 37px); }
-      .timer-label { font-size: 7px; letter-spacing: .1em; }
+      .timer { gap: clamp(8px, 3vw, 18px); }
+      .timer-number { font-size: clamp(29px, 8vw, 38px); }
+      .timer-label { font-size: 8px; letter-spacing: .1em; }
       .timer-message { margin-top: 18px; font-size: 14px; }
       .gallery-grid { grid-template-rows: 170px 130px 160px; gap: 8px; margin-top: 28px; }
       .gallery-item { border-radius: 8px; }
@@ -3566,78 +3510,26 @@
     };
     const timerMessage = document.getElementById("timer-message");
 
-    function createFlipDigit(value) {
-      const digit = document.createElement("span");
-      digit.className = "flip-digit";
-      digit.dataset.value = value;
-      digit.setAttribute("aria-hidden", "true");
-
-      [
-        ["flip-face flip-top flip-old-top", value],
-        ["flip-face flip-bottom flip-old-bottom", value],
-        ["flip-face flip-top flip-next-top", value],
-        ["flip-face flip-bottom flip-next-bottom", value]
-      ].forEach(([className, character]) => {
-        const face = document.createElement("span");
-        const faceValue = document.createElement("span");
-        face.className = className;
-        faceValue.textContent = character;
-        face.append(faceValue);
-        digit.append(face);
-      });
-
-      const incomingBottom = digit.querySelector(".flip-next-bottom");
-      incomingBottom.addEventListener("animationend", (event) => {
-        if (event.target !== incomingBottom || event.animationName !== "flip-digit-in") return;
-        const finalValue = digit.dataset.nextValue;
-        digit.querySelectorAll(".flip-face > span").forEach((face) => { face.textContent = finalValue; });
-        digit.dataset.value = finalValue;
-        digit.classList.remove("is-flipping");
-      });
-      return digit;
-    }
-
-    function updateFlipNumber(node, value) {
+    function updateTimerNumber(node, value) {
       const label = node.parentElement.querySelector(".timer-label").textContent;
       node.setAttribute("role", "img");
       node.setAttribute("aria-label", `${value} ${label}`);
       if (node.dataset.value === value) return;
-
-      const digits = [...value];
-      if (node.children.length !== digits.length) {
-        node.replaceChildren(...digits.map(createFlipDigit));
-        node.dataset.value = value;
-        return;
-      }
-
-      digits.forEach((character, index) => {
-        const digit = node.children[index];
-        if (digit.dataset.value === character) return;
-        if (reducedMotion || document.hidden) {
-          digit.classList.remove("is-flipping");
-          digit.querySelectorAll(".flip-face > span").forEach((face) => { face.textContent = character; });
-          digit.dataset.value = character;
-          return;
-        }
-        digit.dataset.nextValue = character;
-        digit.querySelector(".flip-next-top > span").textContent = character;
-        digit.querySelector(".flip-next-bottom > span").textContent = character;
-        digit.classList.add("is-flipping");
-      });
+      node.textContent = value;
       node.dataset.value = value;
     }
 
     function updateCountdown() {
       const remaining = weddingDate - Date.now();
       if (remaining <= 0) {
-        Object.values(timerNodes).forEach((node) => updateFlipNumber(node, "0"));
+        Object.values(timerNodes).forEach((node) => updateTimerNumber(node, "0"));
         timerMessage.textContent = translate("weddingDayMessage");
         return;
       }
-      updateFlipNumber(timerNodes.days, String(Math.floor(remaining / 86400000)));
-      updateFlipNumber(timerNodes.hours, String(Math.floor((remaining / 3600000) % 24)).padStart(2, "0"));
-      updateFlipNumber(timerNodes.minutes, String(Math.floor((remaining / 60000) % 60)).padStart(2, "0"));
-      updateFlipNumber(timerNodes.seconds, String(Math.floor((remaining / 1000) % 60)).padStart(2, "0"));
+      updateTimerNumber(timerNodes.days, String(Math.floor(remaining / 86400000)));
+      updateTimerNumber(timerNodes.hours, String(Math.floor((remaining / 3600000) % 24)).padStart(2, "0"));
+      updateTimerNumber(timerNodes.minutes, String(Math.floor((remaining / 60000) % 60)).padStart(2, "0"));
+      updateTimerNumber(timerNodes.seconds, String(Math.floor((remaining / 1000) % 60)).padStart(2, "0"));
     }
 
     updateCountdown();
