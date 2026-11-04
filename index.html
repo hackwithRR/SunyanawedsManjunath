@@ -2566,6 +2566,7 @@
     <span class="music-toggle-label" data-i18n="musicPlay">Play music</span>
   </button>
   <p class="music-status" id="music-status" role="status" aria-live="polite"></p>
+  <audio id="background-audio" src="./bg-audio.mp3" preload="metadata" loop></audio>
 
   <main id="main">
     <section class="hero" id="home" aria-labelledby="hero-title">
@@ -2979,6 +2980,7 @@
     const musicToggleLabel = musicToggle.querySelector(".music-toggle-label");
     const musicStatus = document.getElementById("music-status");
     const pageBackgroundVideo = document.getElementById("page-background-video");
+    const backgroundAudio = document.getElementById("background-audio");
     let activeLanguage = "en";
     let selectedLanguage = "en";
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -2992,18 +2994,11 @@
     }
     let rsvpLock = null;
     let gateCloseTimer = 0;
-    let ambientContext = null;
-    let ambientMaster = null;
-    let ambientOscillators = [];
-    let ambientChordTimer = 0;
-    let ambientChordIndex = 0;
     let musicPlaying = false;
-    const ambientChords = [
-      [130.81, 164.81, 196.00, 261.63],
-      [110.00, 130.81, 164.81, 220.00],
-      [87.31, 110.00, 130.81, 174.61],
-      [98.00, 123.47, 146.83, 196.00]
-    ];
+    backgroundAudio.volume = 0.4;
+    backgroundAudio.addEventListener("error", () => {
+      console.error("The background audio could not be loaded.", backgroundAudio.error);
+    });
 
     function updateMusicControl(statusKey) {
       musicToggle.setAttribute("aria-pressed", String(musicPlaying));
@@ -3012,75 +3007,17 @@
       musicStatus.textContent = statusKey ? translate(statusKey) : "";
     }
 
-    function createAmbientMusic() {
-      const AudioContextType = window.AudioContext;
-      if (!AudioContextType) return false;
-
-      ambientContext = new AudioContextType();
-      ambientMaster = ambientContext.createGain();
-      ambientMaster.gain.value = 0;
-      ambientMaster.connect(ambientContext.destination);
-      ambientOscillators = ambientChords[0].map((frequency, index) => {
-        const oscillator = ambientContext.createOscillator();
-        const voice = ambientContext.createGain();
-        oscillator.type = "sine";
-        oscillator.frequency.value = frequency;
-        voice.gain.value = [0.08, 0.045, 0.03, 0.012][index];
-        oscillator.connect(voice);
-        voice.connect(ambientMaster);
-        oscillator.start();
-        return oscillator;
-      });
-      ambientChordIndex = 0;
-      ambientMaster.gain.setTargetAtTime(.72, ambientContext.currentTime, 1.6);
-      return true;
-    }
-
-    function advanceAmbientChord() {
-      if (!ambientContext) return;
-      ambientChordIndex = (ambientChordIndex + 1) % ambientChords.length;
-      const chord = ambientChords[ambientChordIndex];
-      ambientOscillators.forEach((oscillator, index) => {
-        oscillator.frequency.setTargetAtTime(chord[index], ambientContext.currentTime, 1.2);
-      });
-    }
-
     async function toggleAmbientMusic() {
       if (musicPlaying) {
-        window.clearInterval(ambientChordTimer);
-        ambientChordTimer = 0;
-        try {
-          await ambientContext.suspend();
-          musicPlaying = false;
-          updateMusicControl("musicPausedStatus");
-        } catch (error) {
-          console.error("Could not pause ambient music.", error);
-          updateMusicControl("musicError");
-        }
+        backgroundAudio.pause();
+        musicPlaying = false;
+        updateMusicControl("musicPausedStatus");
         return;
       }
 
-      if (!ambientContext) {
-        try {
-          if (!createAmbientMusic()) {
-            musicToggleLabel.textContent = translate("musicUnavailable");
-            musicToggle.setAttribute("aria-label", translate("musicUnavailable"));
-            musicStatus.textContent = translate("musicError");
-            return;
-          }
-        } catch (error) {
-          console.error("Could not prepare ambient music.", error);
-          musicToggleLabel.textContent = translate("musicUnavailable");
-          musicToggle.setAttribute("aria-label", translate("musicUnavailable"));
-          musicStatus.textContent = translate("musicError");
-          return;
-        }
-      }
-
       try {
-        await ambientContext.resume();
+        await backgroundAudio.play();
         musicPlaying = true;
-        ambientChordTimer = window.setInterval(advanceAmbientChord, 9000);
         updateMusicControl("musicStarted");
       } catch (error) {
         console.error("Could not start ambient music.", error);
