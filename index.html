@@ -2477,6 +2477,25 @@
     .hero {
       background: linear-gradient(180deg, rgba(251, 248, 240, .7), rgba(251, 248, 240, .76));
     }
+    .hero-om {
+      margin: 0 0 2px;
+      color: #a64e43;
+      font: 600 32px/1 var(--serif);
+      text-align: center;
+    }
+    .hero-invocation {
+      color: #294536;
+      font-size: 19px;
+      font-style: normal;
+      font-weight: 600;
+      letter-spacing: .015em;
+    }
+    .hero-invocation-secondary {
+      color: #3b2b20;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
     .intro, .events, .gallery {
       background: rgba(251, 248, 240, .72);
     }
@@ -2502,6 +2521,47 @@
     }
     .site-footer {
       background: rgba(23, 54, 47, .88);
+    }
+    :root { --ink: #293a2e; }
+    @media (max-width: 760px) {
+      body { font-size: 18px; }
+      .hero-om { font-size: 36px; }
+      .hero-invocation { font-size: 19px; line-height: 1.5; }
+      .hero-invocation-secondary { font-size: 23px; line-height: 1.4; }
+      .hero-subtitle { font-size: 18px; }
+      .hero-date { font-size: 13px; }
+      .hero-family span { font-size: 12px; }
+      .hero-family p { font-size: 15px; }
+      .section-label { font-size: 14px; }
+      .section-title { font-size: clamp(44px, 11vw, 58px); }
+      .intro-copy, .journey-copy p, .venue-copy > p:not(.section-label),
+      .event-card p, .rsvp-intro { font-size: 18px; }
+      .field label, .attendance-field legend { font-size: 15px; }
+      .rsvp-notice { font-size: 14px; }
+      .language-panel .section-label { font-size: 15px; }
+      .language-panel h1 { font-size: clamp(38px, 10vw, 46px); }
+      .language-panel > p:not(.section-label) { font-size: 17px; line-height: 1.6; }
+      .language-choice { min-height: 78px; font-size: 18px; }
+      .language-choice span { font-size: 14px; }
+      .gate-open { min-height: 82px; }
+      .gate-open-label { font-size: 22px; }
+      .gate-scroll-cue { font-size: 13px !important; }
+      .journey-copy h3 { font-size: clamp(38px, 10vw, 50px); }
+      .journey-image figcaption, .gallery-caption { font-size: 16px; }
+      .event-card h3 { font-size: 30px; }
+      .countdown h2 { font-size: 38px; }
+      .timer-message { font-size: 17px; }
+      .attendance-choice span { font-size: 15px; }
+      .site-footer p { font-size: 14px; }
+    }
+    @media (max-width: 380px) {
+      .hero-invocation { font-size: 17px; }
+      .hero-invocation-secondary { font-size: 20px; }
+      .hero-date { font-size: 12px; }
+      .hero-family p { font-size: 14px; }
+      .language-panel { padding-right: 16px; padding-left: 16px; }
+      .language-choice { font-size: 17px; }
+      .language-choice span { font-size: 13px; }
     }
     @media (prefers-reduced-motion: reduce) {
       .page-background-video { display: none; }
@@ -2571,6 +2631,7 @@
   <main id="main">
     <section class="hero" id="home" aria-labelledby="hero-title">
       <div class="hero-invocations">
+        <p class="hero-om" aria-label="Om">ॐ</p>
         <p class="hero-invocation" data-i18n="deityInvocation">Sri Lakshmi Venkateshwara Prasanna</p>
         <p class="hero-invocation hero-invocation-secondary" data-i18n="houseDeityInvocation">Shree Prasanna Parvathi Sametha Shree Najundreshwaraswamy Prasanna</p>
       </div>
@@ -3107,6 +3168,7 @@
     function openInvitation() {
       if (languageGate.classList.contains("is-opening")) return;
       applyLanguage(selectedLanguage);
+      if (!musicPlaying) void toggleAmbientMusic();
       languageGate.classList.add("is-opening");
       window.scrollTo({ top: 0, behavior: reducedMotion ? "auto" : "smooth" });
       gateCloseTimer = window.setTimeout(() => {
