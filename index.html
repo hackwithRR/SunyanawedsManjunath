@@ -91,11 +91,6 @@
       transition: color .2s ease;
     }
     .nav-links a:hover, .nav-links a:focus-visible { color: #f0c48e; }
-    .nav-links .nav-rsvp {
-      border: 1px solid rgba(255,253,247,.42);
-      border-radius: 30px;
-      padding: 11px 18px;
-    }
 
     .hero {
       position: relative;
@@ -518,7 +513,6 @@
       height: 100%;
       object-fit: cover;
       object-position: 50% 40%;
-      filter: brightness(1.14) saturate(1.18) contrast(1.03);
       transform: translate3d(0, var(--parallax-y, 0px), 0) scale(1.12);
       will-change: transform;
     }
@@ -852,13 +846,10 @@
     html[lang="kn"] .hero-date,
     html[lang="kn"] .hero-family p,
     html[lang="kn"] .journey-copy p,
-    html[lang="kn"] .event-card p,
-    html[lang="kn"] .rsvp-intro {
+    html[lang="kn"] .event-card p {
       line-height: 1.9;
     }
-    html[lang="kn"] .hero-family span,
-    html[lang="kn"] .field label,
-    html[lang="kn"] .attendance-field legend { line-height: 1.7; }
+    html[lang="kn"] .hero-family span { line-height: 1.7; }
     html[lang="kn"] .button,
     html[lang="kn"] .gate-open,
     html[lang="kn"] .language-choice { line-height: 1.6; }
@@ -1148,30 +1139,6 @@
     .gallery-item:hover img[data-parallax] { transform: translate3d(0, var(--parallax-y, 0px), 0) scale(1.13); }
     .gallery-caption { margin: 17px 0 0; color: var(--muted); font: italic 15px var(--serif); text-align: center; }
 
-    .rsvp { background: var(--forest); color: var(--paper); }
-    .rsvp .section-label { color: #e5b478; }
-    .rsvp .section-title { color: var(--paper); }
-    .rsvp-intro { max-width: 520px; margin: 0 auto 38px; color: rgba(255,253,247,.69); font-size: 13px; line-height: 1.8; text-align: center; }
-    .rsvp-form { display: grid; max-width: 630px; grid-template-columns: 1fr 1fr; gap: 20px 16px; margin: 0 auto; }
-    .field { display: flex; flex-direction: column; gap: 8px; }
-    .field.full { grid-column: 1 / -1; }
-    .field label { color: rgba(255,253,247,.78); font-size: 10px; letter-spacing: .13em; text-transform: uppercase; }
-    .field input, .field textarea {
-      width: 100%;
-      border: 1px solid rgba(255,253,247,.32);
-      border-radius: 0;
-      padding: 13px 14px;
-      outline: none;
-      background: rgba(255,253,247,.06);
-      color: var(--paper);
-      transition: border-color .2s ease, background .2s ease;
-    }
-    .field input:focus, .field textarea:focus { border-color: #e5b478; background: rgba(255,253,247,.1); }
-    .field input::placeholder, .field textarea::placeholder { color: rgba(255,253,247,.4); }
-    .field textarea { min-height: 92px; resize: vertical; }
-    .rsvp-submit { grid-column: 1 / -1; justify-self: center; margin-top: 5px; cursor: pointer; }
-    .form-status { grid-column: 1 / -1; min-height: 20px; margin: 0; color: #f0c791; font-size: 13px; text-align: center; }
-
     .site-footer { padding: 34px 24px; background: var(--forest-deep); color: rgba(255,253,247,.6); text-align: center; }
     .footer-names { margin-bottom: 10px; color: #e5b478; font: 400 22px var(--serif); }
     .site-footer p { margin-bottom: 0; font-size: 10px; letter-spacing: .1em; }
@@ -1233,7 +1200,6 @@
       .nav-links { gap: 14px; }
       .nav-links a { font-size: 9px; letter-spacing: .1em; }
       .nav-links a:nth-child(1), .nav-links a:nth-child(2) { display: none; }
-      .nav-links .nav-rsvp { padding: 10px 13px; }
       .hero {
         min-height: auto;
         min-height: 100svh;
@@ -1295,8 +1261,6 @@
       .hero-actions .text-link { font-size: 8px; letter-spacing: .08em; }
       .tower-art { min-height: 315px; }
       .temple-frame { width: min(76%, 290px); aspect-ratio: .84; }
-      .rsvp-form { grid-template-columns: 1fr; }
-      .field.full, .rsvp-submit, .form-status { grid-column: 1; }
       .timer { gap: 12px; }
     }
     @media (prefers-reduced-motion: reduce) {
@@ -1344,7 +1308,6 @@
       box-shadow: 0 8px 28px rgba(34,48,41,.08);
     }
     .nav-links a { color: rgba(60,103,79,.9); }
-    .nav-links .nav-rsvp { border-color: rgba(36,53,47,.28); }
     .hero {
       min-height: max(740px, 100svh);
       grid-template-columns: minmax(0, 1.05fr) minmax(340px, .95fr);
@@ -1413,79 +1376,13 @@
     .countdown { background: var(--coral); }
     .countdown::before { border-color: rgba(255,253,247,.35); }
     .gallery { background: var(--paper); }
-    .rsvp {
-      background:
-        radial-gradient(ellipse at 10% 12%, rgba(200,148,79,.13), transparent 36%),
-        linear-gradient(140deg, #17362f, #24463d);
-    }
-    .rsvp .section-inner { max-width: 760px; }
-    .rsvp .section-title { color: var(--paper); }
-    .rsvp-intro { max-width: 580px; }
-    .rsvp-form {
-      max-width: 660px;
-      gap: 20px;
-      border: 1px solid rgba(255,253,247,.16);
-      padding: clamp(22px, 5vw, 42px);
-      background: rgba(255,253,247,.055);
-      box-shadow: 0 24px 70px rgba(0,0,0,.12);
-    }
-    .field input, .field textarea, .field select {
-      min-height: 48px;
-      border-color: rgba(255,253,247,.25);
-      background: rgba(255,253,247,.07);
-      color: var(--paper);
-    }
-    .field select option { color: var(--ink); }
-    .field input:focus, .field textarea:focus, .field select:focus { border-color: #e5b478; }
-    .attendance-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .attendance-field { min-width: 0; border: 0; padding: 0; margin: 0; }
-    .attendance-field legend {
-      margin-bottom: 9px;
-      color: rgba(255,253,247,.78);
-      font-size: 10px;
-      letter-spacing: .13em;
-      text-transform: uppercase;
-    }
-    .attendance-choice { position: relative; }
-    .attendance-choice input {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      opacity: 0;
-    }
-    .attendance-choice span {
-      display: flex;
-      min-height: 48px;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid rgba(255,253,247,.25);
-      color: rgba(255,253,247,.8);
-      cursor: pointer;
-      font-size: 12px;
-      transition: background .2s ease, border-color .2s ease, color .2s ease;
-    }
-    .attendance-choice input:checked + span { border-color: #e5b478; background: rgba(229,180,120,.14); color: #ffe2b7; }
-    .attendance-choice input:focus-visible + span { outline: 2px solid #e5b478; outline-offset: 3px; }
-    .guest-count-field[hidden] { display: none; }
-    .rsvp-submit { min-height: 50px; background: #e5b478; color: var(--forest-deep); }
-    .rsvp-submit:hover { background: #f0c791; }
-    .rsvp-submit:disabled { cursor: default; opacity: .7; transform: none; }
-    .form-status { line-height: 1.6; }
-    .rsvp-notice {
-      max-width: 660px;
-      margin: 18px auto 0;
-      color: rgba(255,253,247,.57);
-      font-size: 11px;
-      line-height: 1.7;
-      text-align: center;
-    }
     .site-footer { background: #112b26; }
     .footer-names { color: #e5b478; }
     html[lang="kn"] { --sans: "Noto Sans Kannada", sans-serif; --serif: "Noto Serif Kannada", serif; }
     html[lang="kn"] .hero h1 { font-family: var(--serif); letter-spacing: -.04em; }
     html[lang="kn"] .hero h1 span { font-style: normal; }
     html[lang="kn"] .hero-families, html[lang="kn"] .event-card p,
-    html[lang="kn"] .journey-copy p, html[lang="kn"] .rsvp-intro { line-height: 1.9; }
+    html[lang="kn"] .journey-copy p { line-height: 1.9; }
     html[lang="kn"] .journey-number, html[lang="kn"] .event-index { font-family: var(--sans); font-style: normal; font-size: 11px; letter-spacing: .04em; }
     html[lang="kn"] .section-label, html[lang="kn"] .nav-links a,
     html[lang="kn"] .button, html[lang="kn"] .text-link,
@@ -1494,7 +1391,6 @@
     html[lang="kn"] .event-time, html[lang="kn"] .timer-label { font-size: 10px !important; }
     html[lang="kn"] .site-header { gap: 8px; }
     html[lang="kn"] .nav-links { flex: 1; justify-content: flex-end; }
-    html[lang="kn"] .nav-links .nav-rsvp { white-space: nowrap; }
     html[lang="kn"] .hero-next-kicker { font-size: 9px; letter-spacing: 0; }
 
     @media (min-width: 761px) {
@@ -1505,7 +1401,6 @@
       .site-header { padding: 17px 19px; }
       .wordmark { font-size: 19px; }
       .nav-links { gap: 0; }
-      .nav-links .nav-rsvp { padding: 10px 15px; color: var(--forest); }
       .hero {
         min-height: auto;
         grid-template-columns: minmax(0, 1fr);
@@ -1541,9 +1436,6 @@
       .event-card h3 { margin-top: 15px; }
       .venue-link { width: 100%; text-align: center; }
       .gallery-grid { grid-template-rows: 190px 150px 180px; gap: 9px; }
-      .rsvp-form { grid-template-columns: 1fr; gap: 16px; }
-      .field.full, .rsvp-submit, .form-status { grid-column: 1; }
-      .rsvp .section-inner { width: min(620px, 100%); }
     }
     @media (max-width: 430px) {
       .hero { padding: 96px 17px 37px; }
@@ -1562,7 +1454,6 @@
       .timer { gap: 10px; }
       .timer-number { font-size: clamp(32px, 8vw, 42px); }
       .timer-label { font-size: 9px; letter-spacing: .12em; }
-      .rsvp-form { padding: 20px 16px; }
     }
     @media (min-width: 761px) and (max-width: 940px) {
       .hero {
@@ -1750,11 +1641,7 @@
     .section-inner[data-scroll-depth] {
       transform: perspective(1600px) translate3d(0,var(--scroll-depth-y,0px),0) rotateX(var(--scroll-tilt-x,0deg));
     }
-    .rsvp-form[data-scroll-depth] {
-      transform: perspective(1200px) translate3d(0,var(--scroll-depth-y,0px),0) rotateX(var(--scroll-tilt-x,0deg));
-      transition: opacity .9s ease;
-    }
-    .event-card, .temple-frame, .gallery-item, .rsvp-form {
+    .event-card, .temple-frame, .gallery-item {
       --tilt-x: 0deg;
       --tilt-y: 0deg;
       transform-style: preserve-3d;
@@ -1814,7 +1701,7 @@
     @media (prefers-reduced-motion: reduce) {
       [data-reveal], [data-reveal].is-visible { transform: none; }
       [data-scroll-depth] { transform: none !important; will-change: auto; }
-      .event-card, .temple-frame, .gallery-item, .rsvp-form { transform: none !important; }
+      .event-card, .temple-frame, .gallery-item { transform: none !important; }
       .language-panel { animation: none; }
       .button::after { display: none; }
     }
@@ -1836,16 +1723,7 @@
       }
       .site-header.is-scrolled { padding-top: 9px; padding-bottom: 9px; }
       .wordmark { font-size: 19px; }
-      .nav-links { flex: 0 0 auto; margin-left: auto; }
-      .nav-links a:not(.nav-rsvp) { display: none; }
-      .nav-links .nav-rsvp {
-        min-height: 39px;
-        display: inline-flex;
-        align-items: center;
-        border-color: rgba(36,53,47,.23);
-        padding: 0 13px;
-        font-size: 8px;
-      }
+      .nav-links { display: none; }
       .language-switch {
         min-width: 42px;
         min-height: 39px;
@@ -2076,13 +1954,6 @@
       .gallery-grid { grid-template-rows: 170px 130px 160px; gap: 8px; margin-top: 28px; }
       .gallery-item { border-radius: 8px; }
       .gallery-caption { font-size: 13px; }
-      .rsvp-form { gap: 15px; border-radius: 16px; padding: 19px 15px; }
-      .field label, .attendance-field legend { font-size: 9px; }
-      .field input, .field textarea, .field select { min-height: 50px; border-radius: 8px; padding: 12px; font-size: 16px; }
-      .attendance-options { gap: 8px; }
-      .attendance-choice span { min-height: 52px; border-radius: 8px; padding: 8px; font-size: 11px; line-height: 1.35; }
-      .rsvp-submit { width: 100%; min-height: 54px; border-radius: 8px; font-size: 9px; }
-      .rsvp-notice { font-size: 10px; }
       .site-footer { padding: 27px 19px calc(29px + env(safe-area-inset-bottom)); }
       .mobile-dock {
         position: fixed;
@@ -2091,7 +1962,7 @@
         bottom: max(12px, env(safe-area-inset-bottom));
         left: 12px;
         display: grid;
-        grid-template-columns: 1fr 1.25fr;
+        grid-template-columns: 1fr;
         gap: 8px;
         padding: 7px;
         border: 1px solid rgba(255,253,248,.75);
@@ -2338,9 +2209,6 @@
     .venue-landmark span { font-size: 11px; }
     .venue-address span, .venue-copy .section-label { font-size: 11px; }
     .gallery-caption { font-size: 17px; }
-    .rsvp-intro { font-size: 15px; }
-    .field label, .attendance-field legend { font-size: 12px; }
-    .rsvp-notice { font-size: 12px; }
     .site-footer p { font-size: 11px; }
     .section::before { z-index: 0; }
     @media (max-width: 760px) {
@@ -2361,9 +2229,6 @@
       .event-card .event-time { font-size: 10px !important; }
       .venue-copy .section-label, .venue-address span { font-size: 10px; }
       .gallery-caption { font-size: 16px; }
-      .field label, .attendance-field legend { font-size: 11px; }
-      .rsvp-intro { font-size: 14px; }
-      .rsvp-notice { font-size: 11px; }
       html[lang="kn"] .hero-date { font-size: 10px; }
       html[lang="kn"] .hero-family p { font-size: 11.5px; }
       html[lang="kn"] .hero-family span { font-size: 8.5px; }
@@ -2417,11 +2282,6 @@
       background: linear-gradient(180deg, #a64e43 0%, #a64e43 calc(100% - 52px), #fffdf8 100%);
     }
     .gallery { background: linear-gradient(180deg, #fffdf8 0%, #fffdf8 calc(100% - 72px), #17362f 100%); }
-    .rsvp {
-      background:
-        radial-gradient(ellipse at 10% 12%, rgba(200,148,79,.13), transparent 36%),
-        linear-gradient(180deg, #17362f 0%, #24463d calc(100% - 64px), #112b26 100%);
-    }
     .section::before { background-size: 240px 280px; }
     .music-toggle {
       position: fixed;
@@ -2497,10 +2357,6 @@
       .timer-label { font-size: 9px; letter-spacing: .08em; }
       .timer-message { font-size: 15px; }
       .gallery-caption { font-size: 15px; }
-      .field label, .attendance-field legend { font-size: 11px; }
-      .attendance-choice span { font-size: 13px; }
-      .rsvp-intro { font-size: 15px; line-height: 1.75; }
-      .rsvp-notice { font-size: 12px; line-height: 1.7; }
       .site-footer p { font-size: 12px; line-height: 1.7; }
       .music-toggle {
         right: 14px;
@@ -2572,9 +2428,6 @@
     .countdown {
       background: rgba(183, 97, 76, .78);
     }
-    .rsvp {
-      background: rgba(23, 54, 47, .82);
-    }
     .section::before,
     .section::after,
     .hero::after,
@@ -2623,9 +2476,7 @@
       .section-label { font-size: 15px; }
       .section-title { font-size: clamp(44px, 11vw, 58px); }
       .intro-copy, .journey-copy p, .venue-copy > p:not(.section-label),
-      .event-card p, .rsvp-intro { font-size: 19px; }
-      .field label, .attendance-field legend { font-size: 16px; }
-      .rsvp-notice { font-size: 15px; }
+      .event-card p { font-size: 19px; }
       .language-panel .section-label { font-size: 15px; }
       .language-panel h1 { font-size: clamp(38px, 10vw, 46px); }
       .language-panel > p:not(.section-label) { font-size: 17px; line-height: 1.6; }
@@ -2639,7 +2490,6 @@
       .event-card h3 { font-size: 30px; }
       .countdown h2 { font-size: 38px; }
       .timer-message { font-size: 17px; }
-      .attendance-choice span { font-size: 15px; }
       .site-footer p { font-size: 14px; }
     }
     @keyframes mobile-hero-reveal {
@@ -2679,8 +2529,7 @@
       html[lang="kn"] .journey-image figcaption { font-size: 14px; line-height: 1.6; }
       html[lang="kn"] .hero-family p { font-size: 14px; line-height: 1.85; }
       html[lang="kn"] .hero-date { font-size: 12px; line-height: 1.7; }
-      html[lang="kn"] .event-card p,
-      html[lang="kn"] .rsvp-intro { font-size: 16px; line-height: 1.8; }
+      html[lang="kn"] .event-card p { font-size: 16px; line-height: 1.8; }
     }
     @media (prefers-reduced-motion: reduce) {
       .page-background-video { display: none; }
@@ -2732,13 +2581,11 @@
       <a href="#story" data-i18n="navStory">Our story</a>
       <a href="#celebration" data-i18n="navEvents">The celebration</a>
       <a href="#gallery" data-i18n="navGallery">Moments</a>
-      <a class="nav-rsvp" href="#rsvp" data-i18n="navRsvp">Kindly reply</a>
     </nav>
     <button class="language-switch" id="language-switch" type="button" aria-label="Change language">ಕನ್ನಡ</button>
   </header>
   <nav class="mobile-dock" id="mobile-dock" aria-label="Quick actions" data-i18n-aria="quickActions">
     <a href="https://maps.app.goo.gl/w9jPKg6dWV5pq2Ly7" target="_blank" rel="noreferrer" data-i18n="dockVenue">Venue</a>
-    <a href="#rsvp" data-i18n="dockRsvp">RSVP</a>
   </nav>
   <button class="music-toggle" id="music-toggle" type="button" aria-pressed="false" aria-label="Play ambient music">
     <span class="music-toggle-icon" aria-hidden="true">♫</span>
@@ -2965,41 +2812,6 @@
       </div>
     </section>
 
-    <section class="section rsvp" id="rsvp">
-      <div class="section-inner" data-scroll-depth="1">
-        <div data-reveal>
-          <p class="section-label" data-i18n="rsvpLabel">Your Presence Means Everything</p>
-          <h2 class="section-title" data-i18n-html="rsvpTitle">Kindly <em>Respond</em></h2>
-          <p class="rsvp-intro" data-i18n="rsvpIntro">We would be delighted to have you join us for the wedding celebrations. Kindly let us know whether you will be attending and mention the number of guests accompanying you.</p>
-        </div>
-        <form class="rsvp-form" id="rsvp-form" data-reveal data-delay="1" data-scroll-depth="1">
-          <div class="field full">
-            <label for="guest-name" data-i18n="guestName">Your name</label>
-            <input id="guest-name" name="name" autocomplete="name" placeholder="Your name" data-i18n-placeholder="namePlaceholder" required>
-          </div>
-          <fieldset class="field full attendance-field">
-            <legend data-i18n="attendingQuestion">Will you be attending?</legend>
-            <div class="attendance-options">
-              <label class="attendance-choice">
-                <input type="radio" name="attending" value="yes" required>
-                <span data-i18n="attendingYes">Yes, we will be there.</span>
-              </label>
-              <label class="attendance-choice">
-                <input type="radio" name="attending" value="no" required>
-                <span data-i18n="attendingNo">Sorry, we won't be able to attend.</span>
-              </label>
-            </div>
-          </fieldset>
-          <div class="field full guest-count-field" id="guest-count-wrap" hidden>
-            <label for="guest-count" data-i18n="guestCount">Number of Guests (including yourself)</label>
-            <input id="guest-count" name="guestCount" type="number" min="1" step="1" inputmode="numeric" placeholder="Number of guests" data-i18n-placeholder="countPlaceholder">
-          </div>
-          <button class="button rsvp-submit" type="submit" data-i18n="saveRsvp">Submit Your Response</button>
-          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
-        </form>
-        <p class="rsvp-notice" data-i18n="rsvpNotice">For privacy, this demo saves one reply in this browser only. It is not sent to the couple. Clearing browser data or switching browsers may allow another reply.</p>
-      </div>
-    </section>
   </main>
 
   <footer class="site-footer">
@@ -3011,7 +2823,7 @@
   <script>
     const translations = {
       en: {
-        quickActions: "Quick actions", dockVenue: "View venue", dockRsvp: "Reply to invitation",
+        quickActions: "Quick actions", dockVenue: "View venue",
         musicPlay: "Play music", musicPause: "Pause music", musicUnavailable: "Music unavailable",
         musicStarted: "Ambient music started.", musicPausedStatus: "Ambient music paused.",
         musicError: "Ambient music could not be started in this browser.",
@@ -3030,7 +2842,7 @@
         heroPhotoCaption: "A day to remember", heroPhotoSubcaption: "Sunayana .R & Manjunath Athreya · 6 December 2026",
         heroPhotoBadge: "Our wedding story",
         storyAria: "Our story, told as you scroll", countdownAria: "Countdown to the wedding",
-        navStory: "Our story", navEvents: "The celebration", navGallery: "Moments", navRsvp: "Kindly reply",
+        navStory: "Our story", navEvents: "The celebration", navGallery: "Moments",
         heroNames: "Sunayana .R <span>& Manjunath Athreya</span>",
         heroEyebrow: "Together with our families",
         heroSubtitle: "With the blessings of our elders and the love of our families, we cordially invite you to grace the auspicious occasion of our wedding and bless the couple as they begin their journey together.",
@@ -3068,24 +2880,12 @@
         countdownMessage: "The countdown to a beautiful beginning.", weddingDayMessage: "The wedding day is here. Let the celebrations begin!",
         galleryLabel: "Celebrating Together", galleryTitle: "Moments of Joy and <em>Togetherness</em>",
         galleryCaption: "A beautiful celebration, made even more special with you.",
-        rsvpLabel: "Your Presence Means Everything", rsvpTitle: "Kindly <em>Respond</em>",
-        rsvpIntro: "We would be delighted to have you join us for the wedding celebrations. Kindly let us know whether you will be attending and mention the number of guests accompanying you.",
-        guestName: "Your Name", attendingQuestion: "Will you be attending?",
-        attendingYes: "Yes, we will be there.", attendingNo: "Sorry, we won't be able to attend.",
-        guestCount: "Number of Guests (including yourself)", saveRsvp: "Submit Your Response",
-        namePlaceholder: "Your name", countPlaceholder: "Number of guests",
-        rsvpNotice: "For privacy, this demo saves one reply in this browser only. It is not sent to the couple. Clearing browser data or switching browsers may allow another reply.",
         footerNames: "Sunayana .R & Manjunath Athreya",
         footerTagline: "Celebrating Love, Family and Forever",
         footerDate: "6 DECEMBER 2026 · MANJUNATHA SAMUDAYA BHAVAN · SRIRANGAPATNA",
-        duplicateRsvp: "A reply has already been saved in this browser. It has not been sent to the couple.",
-        storageBlocked: "This browser does not allow local storage, so a one-time reply cannot be saved here.",
-        saveFailed: "We couldn’t save your reply in this browser. It has not been sent to the couple.",
-        savedYes: "Saved for {name}: attending with {count} {guests}. This reply is stored only in this browser and has not been sent to the couple.",
-        savedNo: "Saved for {name}: unable to attend. This reply is stored only in this browser and has not been sent to the couple."
       },
       kn: {
-        quickActions: "ತ್ವರಿತ ಆಯ್ಕೆಗಳು", dockVenue: "ಸ್ಥಳದ ದಾರಿ", dockRsvp: "ಆಹ್ವಾನಕ್ಕೆ ಉತ್ತರಿಸಿ",
+        quickActions: "ತ್ವರಿತ ಆಯ್ಕೆಗಳು", dockVenue: "ಸ್ಥಳದ ದಾರಿ",
         musicPlay: "ಸಂಗೀತ ಆಲಿಸಿ", musicPause: "ಸಂಗೀತ ನಿಲ್ಲಿಸಿ", musicUnavailable: "ಸಂಗೀತ ಲಭ್ಯವಿಲ್ಲ",
         musicStarted: "ಮೃದುವಾದ ಹಿನ್ನೆಲೆ ಸಂಗೀತ ಆರಂಭವಾಗಿದೆ.", musicPausedStatus: "ಹಿನ್ನೆಲೆ ಸಂಗೀತ ನಿಂತಿದೆ.",
         musicError: "ಈ ಬ್ರೌಸರ್‌ನಲ್ಲಿ ಹಿನ್ನೆಲೆ ಸಂಗೀತ ಆರಂಭಿಸಲಾಗಲಿಲ್ಲ.",
@@ -3103,7 +2903,7 @@
         heroPhotoCaption: "ನೆನಪಿನಲ್ಲಿ ಉಳಿಯುವ ದಿನ", heroPhotoSubcaption: "ಸುನಯನಾ .ಆರ್ ಮತ್ತು ಮಂಜುನಾಥ್ ಅತ್ರೇಯ · 6 ಡಿಸೆಂಬರ್ 2026",
         heroPhotoBadge: "ನಮ್ಮ ವಿವಾಹದ ಕಥೆ",
         storyAria: "ಸ್ಕ್ರಾಲ್ ಮಾಡುವಾಗ ನಮ್ಮ ಕಥೆಯ ಕ್ಷಣಗಳು", countdownAria: "ವಿವಾಹದ ದಿನದ ಕ್ಷಣಗಣನೆ",
-        navStory: "ಹೊಸ ಜೀವನದ ಶುಭಾರಂಭ", navEvents: "ವಿವಾಹ ಸಂಭ್ರಮ", navGallery: "ಸುಂದರ ನೆನಪುಗಳು", navRsvp: "ಆಗಮನ ತಿಳಿಸಿ",
+        navStory: "ಹೊಸ ಜೀವನದ ಶುಭಾರಂಭ", navEvents: "ವಿವಾಹ ಸಂಭ್ರಮ", navGallery: "ಸುಂದರ ನೆನಪುಗಳು",
         heroNames: "ಸುನಯನಾ .ಆರ್ <span>ಮತ್ತು ಮಂಜುನಾಥ್ ಅತ್ರೇಯ</span>",
         heroEyebrow: "ಹಿರಿಯರ ಆಶೀರ್ವಾದದೊಂದಿಗೆ",
         heroSubtitle: "ಹಿರಿಯರ ಆಶೀರ್ವಾದ ಹಾಗೂ ಬಂಧುಮಿತ್ರರ ಶುಭ ಹಾರೈಕೆಗಳೊಂದಿಗೆ ನಡೆಯಲಿರುವ ನಮ್ಮ ವಿವಾಹ ಮಹೋತ್ಸವಕ್ಕೆ ತಾವು ಕುಟುಂಬ ಸಮೇತರಾಗಿ ಆಗಮಿಸಿ, ವಧೂವರರನ್ನು ಆಶೀರ್ವದಿಸಿ, ನಮ್ಮ ಸಂತೋಷದಲ್ಲಿ ಪಾಲ್ಗೊಳ್ಳಬೇಕಾಗಿ ಪ್ರೀತಿಪೂರ್ವಕವಾಗಿ ಆಹ್ವಾನಿಸುತ್ತೇವೆ.",
@@ -3141,21 +2941,9 @@
         countdownMessage: "ಆ ಶುಭ ದಿನದ ಆಗಮನಕ್ಕಾಗಿ ಕಾತರದಿಂದ ಕಾಯುತ್ತಿದ್ದೇವೆ.", weddingDayMessage: "ಮದುವೆಯ ಶುಭ ದಿನ ಬಂದಿದೆ. ಸಂಭ್ರಮ ಆರಂಭವಾಗಲಿ!",
         galleryLabel: "ಸಂಭ್ರಮದ ಸುಂದರ ನೆನಪುಗಳು", galleryTitle: "ಸಂಭ್ರಮದ <em>ಸುಂದರ ನೆನಪುಗಳು</em>",
         galleryCaption: "ನಮ್ಮ ಸಂತಸದ ಕ್ಷಣಗಳನ್ನು ನಿಮ್ಮೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳಲು ಹರ್ಷವಾಗುತ್ತದೆ.",
-        rsvpLabel: "ನಿಮ್ಮ ಆಗಮನದ ನಿರೀಕ್ಷೆಯಲ್ಲಿ", rsvpTitle: "ದಯವಿಟ್ಟು <em>ತಿಳಿಸಿ</em>",
-        rsvpIntro: "ನಮ್ಮ ವಿವಾಹ ಸಮಾರಂಭದಲ್ಲಿ ನಿಮ್ಮ ಉಪಸ್ಥಿತಿಯನ್ನು ಹೃತ್ಪೂರ್ವಕವಾಗಿ ಬಯಸುತ್ತೇವೆ. ತಾವು ಸಮಾರಂಭಕ್ಕೆ ಆಗಮಿಸುವಿರಾ ಎಂಬುದನ್ನು ದಯವಿಟ್ಟು ತಿಳಿಸಿ. ಆಗಮಿಸುವವರಾದರೆ, ನಿಮ್ಮೊಂದಿಗೆ ಬರುವ ಒಟ್ಟು ಅತಿಥಿಗಳ ಸಂಖ್ಯೆಯನ್ನೂ ನಮೂದಿಸಿ.",
-        guestName: "ನಿಮ್ಮ ಹೆಸರು", attendingQuestion: "ತಾವು ಆಗಮಿಸುತ್ತೀರಾ?",
-        attendingYes: "ಹೌದು, ಖಂಡಿತವಾಗಿ ಆಗಮಿಸುತ್ತೇವೆ", attendingNo: "ಕ್ಷಮಿಸಿ, ಆಗಮಿಸಲು ಸಾಧ್ಯವಾಗುವುದಿಲ್ಲ",
-        guestCount: "ಒಟ್ಟು ಅತಿಥಿಗಳ ಸಂಖ್ಯೆ", saveRsvp: "ಉತ್ತರವನ್ನು ದಾಖಲಿಸಿ",
-        namePlaceholder: "ನಿಮ್ಮ ಹೆಸರು", countPlaceholder: "ಒಟ್ಟು ಅತಿಥಿಗಳ ಸಂಖ್ಯೆ",
-        rsvpNotice: "ಗೌಪ್ಯತೆಗಾಗಿ, ಈ ಉತ್ತರವನ್ನು ಈ ಬ್ರೌಸರ್‌ನಲ್ಲಷ್ಟೇ ಉಳಿಸಲಾಗುತ್ತದೆ; ದಂಪತಿಗಳಿಗೆ ಕಳುಹಿಸಲಾಗುವುದಿಲ್ಲ. ಬ್ರೌಸರ್ ಮಾಹಿತಿ ಅಳಿಸಿದರೆ ಅಥವಾ ಬೇರೆ ಸಾಧನ ಬಳಸಿದರೆ ಮತ್ತೊಮ್ಮೆ ಉತ್ತರಿಸಬಹುದು.",
         footerNames: "ಸುನಯನಾ .ಆರ್ ಮತ್ತು ಮಂಜುನಾಥ್ ಅತ್ರೇಯ",
         footerTagline: "ಪ್ರೀತಿ, ಬಾಂಧವ್ಯ ಹಾಗೂ ಹಿರಿಯರ ಆಶೀರ್ವಾದದೊಂದಿಗೆ ಹೊಸ ಜೀವನದ ಶುಭಾರಂಭ.",
         footerDate: "6 ಡಿಸೆಂಬರ್ 2026 · ಮಂಜುನಾಥ ಸಮುದಾಯ ಭವನ · ಶ್ರೀರಂಗಪಟ್ಟಣ",
-        duplicateRsvp: "ಈ ಬ್ರೌಸರ್‌ನಲ್ಲಿ ಈಗಾಗಲೇ ಉತ್ತರ ಉಳಿಸಲಾಗಿದೆ. ಅದು ದಂಪತಿಗಳಿಗೆ ಕಳುಹಿಸಲಾಗಿಲ್ಲ.",
-        storageBlocked: "ಈ ಬ್ರೌಸರ್‌ನಲ್ಲಿ ಸ್ಥಳೀಯ ಸಂಗ್ರಹಣೆ ಲಭ್ಯವಿಲ್ಲ. ಇಲ್ಲಿ ಒಂದು ಬಾರಿ ಮಾತ್ರದ ಉತ್ತರವನ್ನು ಉಳಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ.",
-        saveFailed: "ಈ ಬ್ರೌಸರ್‌ನಲ್ಲಿ ನಿಮ್ಮ ಉತ್ತರವನ್ನು ಉಳಿಸಲಾಗಲಿಲ್ಲ. ಅದು ದಂಪತಿಗಳಿಗೆ ಕಳುಹಿಸಲಾಗಿಲ್ಲ.",
-        savedYes: "{name} ಅವರ ಉತ್ತರ ಉಳಿಸಲಾಗಿದೆ: {count} {guests} ಆಗಮಿಸುತ್ತಾರೆ. ಈ ಉತ್ತರ ಈ ಬ್ರೌಸರ್‌ನಲ್ಲಷ್ಟೇ ಇದೆ; ದಂಪತಿಗಳಿಗೆ ಕಳುಹಿಸಲಾಗಿಲ್ಲ.",
-        savedNo: "{name} ಅವರ ಉತ್ತರ ಉಳಿಸಲಾಗಿದೆ: ಆಗಮಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ. ಈ ಉತ್ತರ ಈ ಬ್ರೌಸರ್‌ನಲ್ಲಷ್ಟೇ ಇದೆ; ದಂಪತಿಗಳಿಗೆ ಕಳುಹಿಸಲಾಗಿಲ್ಲ."
       }
     };
     const languageGate = document.getElementById("language-gate");
@@ -3180,7 +2968,6 @@
         console.warn("The background video could not start playing.", error);
       });
     }
-    let rsvpLock = null;
     let gateCloseTimer = 0;
     let musicPlaying = false;
     backgroundAudio.volume = 0.4;
@@ -3248,7 +3035,6 @@
         : "ಸುನಯನಾ ಮತ್ತು ಮಂಜುನಾಥ್ ಅವರ ವಿವಾಹ ಸಮಾರಂಭಕ್ಕೆ ಆತ್ಮೀಯ ಆಹ್ವಾನ — 6 ಡಿಸೆಂಬರ್ 2026, ಶ್ರೀರಂಗಪಟ್ಟಣ.";
       updateMusicControl(musicPlaying ? "musicStarted" : "");
       timerMessage.textContent = translate(Date.now() >= weddingDate ? "weddingDayMessage" : "countdownMessage");
-      if (rsvpLock) rsvpStatus.textContent = translate(rsvpLock.key, rsvpLock.values);
     }
 
     function openLanguageGate() {
@@ -3333,7 +3119,6 @@
     const header = document.querySelector(".site-header");
     const root = document.documentElement;
     const mobileDock = document.getElementById("mobile-dock");
-    const rsvpSection = document.getElementById("rsvp");
     const parallaxItems = reducedMotion ? [] : [...document.querySelectorAll("[data-parallax]")];
     const depthItems = reducedMotion ? [] : [...document.querySelectorAll("[data-scroll-depth]")];
     const journey = document.querySelector(".story-journey");
@@ -3347,9 +3132,7 @@
       root.style.setProperty("--scroll-progress", String(progress));
       header.classList.toggle("is-scrolled", window.scrollY > 24);
       if (mobileDock) {
-        const beyondHero = window.scrollY > window.innerHeight * .55;
-        const nearRsvp = rsvpSection.getBoundingClientRect().top < window.innerHeight * .65;
-        const showDock = beyondHero && !nearRsvp;
+        const showDock = window.scrollY > window.innerHeight * .55;
         mobileDock.classList.toggle("is-visible", showDock);
         document.body.classList.toggle("has-mobile-dock", showDock);
       }
@@ -3544,65 +3327,6 @@
     updateCountdown();
     window.setInterval(updateCountdown, 1000);
 
-    const rsvpForm = document.getElementById("rsvp-form");
-    const rsvpStatus = document.getElementById("form-status");
-    const guestCountWrap = document.getElementById("guest-count-wrap");
-    const guestCountInput = document.getElementById("guest-count");
-    const rsvpStorageKey = "sunu-wedding-rsvp-2026";
-
-    function lockRsvpForm(key, values = {}) {
-      rsvpForm.querySelectorAll("input, button").forEach((control) => { control.disabled = true; });
-      rsvpLock = { key, values };
-      rsvpStatus.textContent = translate(key, values);
-    }
-
-    function updateGuestCountVisibility() {
-      const attending = rsvpForm.querySelector('input[name="attending"]:checked')?.value === "yes";
-      guestCountWrap.hidden = !attending;
-      guestCountInput.required = attending;
-    }
-
-    rsvpForm.querySelectorAll('input[name="attending"]').forEach((choice) => {
-      choice.addEventListener("change", updateGuestCountVisibility);
-    });
-
-    try {
-      if (localStorage.getItem(rsvpStorageKey)) {
-        lockRsvpForm("duplicateRsvp");
-      }
-    } catch (error) {
-      lockRsvpForm("storageBlocked");
-    }
-
-    rsvpForm.addEventListener("submit", (event) => {
-      event.preventDefault();
-      const formData = new FormData(rsvpForm);
-      const response = {
-        name: String(formData.get("name")).trim(),
-        attending: formData.get("attending"),
-        guestCount: formData.get("attending") === "yes" ? Number(formData.get("guestCount")) : 0,
-        savedAt: new Date().toISOString()
-      };
-
-      try {
-        if (localStorage.getItem(rsvpStorageKey)) {
-          lockRsvpForm("duplicateRsvp");
-          return;
-        }
-        localStorage.setItem(rsvpStorageKey, JSON.stringify(response));
-      } catch (error) {
-        rsvpStatus.textContent = translate("saveFailed");
-        return;
-      }
-
-      const key = response.attending === "yes" ? "savedYes" : "savedNo";
-      const values = {
-        name: response.name,
-        count: response.guestCount,
-        guests: activeLanguage === "kn" ? "ಮಂದಿ" : response.guestCount === 1 ? "guest" : "guests"
-      };
-      lockRsvpForm(key, values);
-    });
   </script>
 </body>
 </html>
