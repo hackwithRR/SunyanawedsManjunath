@@ -688,15 +688,22 @@
     @media (max-width: 760px) {
       body.has-mobile-dock .scroll-indicator {
         bottom: max(90px, env(safe-area-inset-bottom) + 75px);
-        left: auto;
-        right: 80px;
-        margin-left: 0;
+        left: 50%;
+        right: auto;
+        margin-left: -22px;
       }
       body.has-mobile-dock .music-toggle {
         bottom: max(90px, env(safe-area-inset-bottom) + 75px);
       }
+      .scroll-indicator {
+        left: 50%;
+        right: auto;
+        margin-left: -22px;
+        bottom: 28px;
+      }
       .music-toggle {
-        right: 20px;
+        left: 20px;
+        right: auto;
         bottom: 28px;
         min-height: 48px;
         width: 48px;
@@ -2545,7 +2552,7 @@
       position: fixed;
       z-index: 9;
       right: 22px;
-      bottom: 22px;
+      bottom: 28px;
       display: grid;
       place-items: center;
       width: 52px;
@@ -2562,9 +2569,38 @@
       transition: transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
     }
     .music-toggle .music-toggle-icon {
+      position: relative;
+      display: grid;
+      place-items: center;
       font-size: 22px;
       line-height: 1;
       transition: transform .4s cubic-bezier(.2,.8,.2,1), color .3s ease;
+    }
+    .music-toggle .music-toggle-icon::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      background: currentColor;
+      transform: rotate(-45deg) scaleX(0);
+      transform-origin: center;
+      transition: transform .3s cubic-bezier(.2,.8,.2,1);
+      opacity: 0;
+    }
+    .music-toggle:not([aria-pressed="true"]) .music-toggle-icon {
+      color: var(--muted);
+    }
+    .music-toggle:not([aria-pressed="true"]) .music-toggle-icon::after {
+      opacity: 1;
+      transform: rotate(-45deg) scaleX(1);
+    }
+    .music-toggle:hover:not([aria-pressed="true"]) {
+      transform: scale(1.08);
+      border-color: var(--saffron);
+      box-shadow: 0 12px 32px rgba(28,45,38,.18);
+    }
+    .music-toggle:hover:not([aria-pressed="true"]) .music-toggle-icon::after {
+      transform: rotate(-45deg) scaleX(1.1);
     }
     .music-toggle[aria-pressed="true"] {
       border-color: var(--coral);
@@ -2575,13 +2611,9 @@
       animation: music-playing 1.2s ease-in-out infinite;
       color: var(--coral);
     }
-    .music-toggle:not([aria-pressed="true"]) .music-toggle-icon {
-      color: var(--muted);
-    }
-    .music-toggle:hover:not([aria-pressed="true"]) {
-      transform: scale(1.08);
-      border-color: var(--saffron);
-      box-shadow: 0 12px 32px rgba(28,45,38,.18);
+    .music-toggle[aria-pressed="true"] .music-toggle-icon::after {
+      opacity: 0;
+      transform: rotate(-45deg) scaleX(0);
     }
     .music-toggle:hover[aria-pressed="true"] {
       transform: scale(1.05);
