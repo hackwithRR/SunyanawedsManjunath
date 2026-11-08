@@ -937,16 +937,43 @@
     .event-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 56px; }
     .event-card {
       position: relative;
-      min-height: 260px;
+      min-height: 280px;
       padding: 32px 28px;
       border: 1px solid rgba(24,60,53,.17);
       background: rgba(255,253,247,.62);
       text-align: center;
     }
-    .event-index { color: var(--coral); font: italic 15px var(--serif); }
-    .event-card h3 { margin: 22px 0 10px; color: var(--forest); font: 400 25px var(--serif); }
-    .event-card p { margin-bottom: 8px; color: var(--muted); font-size: 12px; line-height: 1.7; }
-    .event-time { color: var(--forest) !important; font-size: 10px !important; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+    .event-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--coral), var(--saffron));
+    }
+    .event-index { color: var(--coral); font: italic 15px var(--serif); margin-bottom: 8px; display: block; }
+    .event-card h3 { margin: 18px 0 16px; color: var(--forest); font: 400 28px var(--serif); line-height: 1.25; }
+    .event-card p { margin-bottom: 20px; color: var(--ink); font-size: 15px; line-height: 1.75; }
+    .event-time {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+      padding: 14px 24px;
+      background: linear-gradient(135deg, var(--coral), #c45a3d);
+      color: var(--paper) !important;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .06em;
+      border-radius: 50px;
+      box-shadow: 0 6px 20px rgba(183,97,76,.35);
+      text-transform: none;
+    }
+    .event-time::before {
+      content: "⏰";
+      font-size: 14px;
+    }
     .event-note { margin: 28px auto 0; color: var(--muted); font-size: 12px; text-align: center; }
     .venue-link {
       display: grid;
@@ -1436,20 +1463,49 @@
     .event-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin-top: 42px; }
     .event-card {
       display: flex;
-      min-height: 260px;
+      min-height: 280px;
       flex-direction: column;
       align-items: flex-start;
       border: 0;
-      border-top: 2px solid var(--coral);
-      padding: 30px clamp(22px, 3vw, 38px);
+      border-top: 3px solid var(--coral);
+      padding: 32px clamp(24px, 3vw, 42px);
       background: var(--paper);
-      box-shadow: 0 12px 34px rgba(46,45,36,.045);
+      box-shadow: 0 16px 48px rgba(46,45,36,.08), 0 4px 0 rgba(255,255,255,.9) inset;
       text-align: left;
+      position: relative;
+      overflow: hidden;
     }
-    .event-index { color: var(--coral); font-size: 13px; letter-spacing: .12em; }
-    .event-card h3 { margin: 20px 0 8px; font-size: clamp(23px, 3vw, 34px); }
-    .event-card p { margin-bottom: 12px; }
-    .event-card .event-time { margin-top: auto; padding-top: 15px; color: var(--coral) !important; }
+    .event-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--coral), var(--saffron));
+    }
+    .event-index { color: var(--coral); font-size: 13px; letter-spacing: .12em; margin-bottom: 4px; }
+    .event-card h3 { margin: 16px 0 14px; font-size: clamp(25px, 3vw, 38px); line-height: 1.2; }
+    .event-card p { margin-bottom: 16px; color: var(--ink); font-size: 15px; line-height: 1.75; }
+    .event-time {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: auto;
+      padding: 14px 22px;
+      background: linear-gradient(135deg, var(--coral), #c45a3d);
+      color: var(--paper) !important;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .06em;
+      border-radius: 50px;
+      box-shadow: 0 6px 20px rgba(183,97,76,.35);
+      text-transform: none;
+    }
+    .event-time::before {
+      content: "⏰";
+      font-size: 14px;
+    }
     .venue-link { min-height: 64px; background: rgba(255,253,248,.45); }
     .countdown { background: var(--coral); }
     .countdown::before { border-color: rgba(255,253,247,.35); }
@@ -1466,7 +1522,8 @@
     html[lang="kn"] .button, html[lang="kn"] .text-link,
     html[lang="kn"] .hero-date, html[lang="kn"] .event-time { letter-spacing: .02em; }
     html[lang="kn"] .section-label { font-size: 11px; }
-    html[lang="kn"] .event-time, html[lang="kn"] .timer-label { font-size: 10px !important; }
+    html[lang="kn"] .event-time { font-size: 12px !important; }
+    html[lang="kn"] .timer-label { font-size: 10px !important; }
     html[lang="kn"] .site-header { gap: 8px; }
     html[lang="kn"] .nav-links { flex: 1; justify-content: flex-end; }
     html[lang="kn"] .hero-next-kicker { font-size: 9px; letter-spacing: 0; }
@@ -1993,30 +2050,61 @@
       .venue-address strong { font-size: 18px; }
       .venue-address span { font-size: 9px; }
       .venue-directions-button { width: min(100%, 330px); min-height: 52px; justify-self: center; border-radius: 8px; }
-      .event-cards { gap: 12px; margin-top: 24px; }
+      .event-cards { gap: 14px; margin-top: 28px; }
       .event-card {
         min-height: 0;
-        padding: 22px 19px 19px;
-        border-top-width: 1px;
-        border-left: 3px solid var(--coral);
-        border-radius: 4px 18px 18px 4px;
+        padding: 24px 20px 20px;
+        border-top-width: 3px;
+        border-left: 0;
+        border-radius: 16px;
         background: linear-gradient(145deg, #fffdf8, #f8f2e6);
-        box-shadow: 0 16px 34px rgba(46,45,36,.1), 0 3px 0 rgba(255,255,255,.82) inset;
+        box-shadow: 0 20px 48px rgba(46,45,36,.12), 0 4px 0 rgba(255,255,255,.85) inset;
         transform-origin: 50% 12%;
+        position: relative;
       }
-      .event-index { font-size: 10px; }
-      .event-card h3 { margin: 11px 0 6px; font-size: 25px; }
-      .event-card p { margin-bottom: 7px; font-size: 11px; }
-      .event-card .event-time { padding-top: 10px; font-size: 8px !important; }
+      .event-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--coral), var(--saffron));
+      }
+      .event-index { font-size: 11px; margin-bottom: 6px; }
+      .event-card h3 { margin: 14px 0 12px; font-size: 28px; line-height: 1.25; }
+      .event-card p { margin-bottom: 16px; font-size: 14px; line-height: 1.7; }
+      .event-card .event-time {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: auto;
+        padding: 14px 20px;
+        background: linear-gradient(135deg, var(--coral), #c45a3d);
+        color: var(--paper) !important;
+        font-size: 13px !important;
+        font-weight: 700;
+        letter-spacing: .04em;
+        border-radius: 50px;
+        box-shadow: 0 6px 20px rgba(183,97,76,.35);
+        text-transform: none;
+        width: fit-content;
+        margin-left: 0;
+        margin-right: auto;
+      }
+      .event-card .event-time::before {
+        content: "⏰";
+        font-size: 15px;
+      }
       .event-card::after {
         position: absolute;
-        top: 14px;
-        right: 14px;
-        width: 38px;
-        height: 38px;
+        top: 16px;
+        right: 16px;
+        width: 44px;
+        height: 44px;
         border: 1px solid rgba(166,78,67,.15);
         border-radius: 50%;
-        box-shadow: 0 0 0 5px rgba(166,78,67,.035);
+        box-shadow: 0 0 0 6px rgba(166,78,67,.04);
         content: "";
         pointer-events: none;
       }
@@ -2074,7 +2162,7 @@
       html[lang="kn"] .hero-date { font-size: 8px; }
       html[lang="kn"] .journey-copy h3 { font-size: clamp(28px, 8vw, 39px); }
       html[lang="kn"] .event-card h3 { font-size: 22px; }
-      html[lang="kn"] .event-card .event-time { font-size: 9px !important; }
+      html[lang="kn"] .event-card .event-time { font-size: 12px !important; }
       html[lang="kn"] .language-panel { padding-right: 21px; padding-left: 21px; }
     }
     @media (max-width: 380px) {
@@ -2306,13 +2394,13 @@
       .journey-copy p { font-size: 15px; }
       .journey-image figcaption { font-size: 14px; }
       .event-card p { font-size: 14px; }
-      .event-card .event-time { font-size: 10px !important; }
+      .event-card .event-time { font-size: 13px !important; }
       .venue-copy .section-label, .venue-address span { font-size: 10px; }
       .gallery-caption { font-size: 16px; }
       html[lang="kn"] .hero-date { font-size: 10px; }
       html[lang="kn"] .hero-family p { font-size: 11.5px; }
       html[lang="kn"] .hero-family span { font-size: 8.5px; }
-      html[lang="kn"] .event-card .event-time { font-size: 10px !important; }
+      html[lang="kn"] .event-card .event-time { font-size: 12px !important; }
     }
     @media (max-width: 380px) {
       .hero h1 { font-size: clamp(40px, 11vw, 48px); font-weight: 800; }
