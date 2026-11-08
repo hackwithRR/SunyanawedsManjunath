@@ -680,7 +680,10 @@
     }
     @media (max-width: 760px) {
       body.has-mobile-dock .scroll-indicator {
-        bottom: max(75px, env(safe-area-inset-bottom) + 60px);
+        bottom: max(100px, env(safe-area-inset-bottom) + 85px);
+      }
+      body.has-mobile-dock .music-toggle {
+        bottom: 120px;
       }
       .music-toggle {
         right: 16px;
@@ -962,25 +965,39 @@
     }
     .event-index { color: var(--coral); font: italic 15px var(--serif); margin-bottom: 8px; display: block; }
     .event-card h3 { margin: 18px 0 16px; color: var(--forest); font: 400 28px var(--serif); line-height: 1.25; }
-    .event-card p { margin-bottom: 20px; color: var(--ink); font-size: 15px; line-height: 1.75; }
+    .event-card p { margin-bottom: 24px; color: var(--ink); font-size: 15px; line-height: 1.75; }
     .event-time {
       display: inline-flex;
+      flex-direction: column;
       align-items: center;
-      gap: 8px;
-      margin-top: 8px;
-      padding: 14px 24px;
+      gap: 4px;
+      margin: 20px auto 0;
+      padding: 20px 32px;
       background: linear-gradient(135deg, var(--coral), #c45a3d);
       color: var(--paper) !important;
-      font-size: 13px;
+      font-size: 17px;
       font-weight: 700;
-      letter-spacing: .06em;
-      border-radius: 50px;
-      box-shadow: 0 6px 20px rgba(183,97,76,.35);
+      letter-spacing: .04em;
+      border-radius: 16px;
+      box-shadow: 0 8px 28px rgba(183,97,76,.4);
       text-transform: none;
+      min-width: 200px;
+    }
+    .event-time-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      opacity: .9;
+    }
+    .event-time-value {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: .02em;
+      line-height: 1.2;
     }
     .event-time::before {
-      content: "⏰";
-      font-size: 14px;
+      display: none;
     }
     .event-note { margin: 28px auto 0; color: var(--muted); font-size: 12px; text-align: center; }
     .venue-link {
@@ -1646,14 +1663,15 @@
       position: relative;
       z-index: 3;
       width: min(520px, 92%);
-      border: 2px solid rgba(229,180,120,.7);
+      border: 2px solid rgba(229,180,120,.5);
       border-radius: 24px;
       padding: clamp(40px, 10vw, 64px);
-      background: linear-gradient(145deg, rgba(255,253,248,.95), rgba(255,253,248,.85));
-      box-shadow: 0 40px 80px rgba(0,0,0,.25), 0 0 0 1px rgba(255,253,248,.5);
+      background: linear-gradient(145deg, var(--forest-deep), var(--forest));
+      box-shadow: 0 40px 80px rgba(0,0,0,.4), 0 0 0 1px rgba(229,180,120,.3), inset 0 1px 0 rgba(255,255,255,.05);
       text-align: center;
       animation: gate-arrive .8s cubic-bezier(.16,1,.3,1) both;
       transition: opacity .45s ease, transform .65s cubic-bezier(.2,.8,.2,1);
+      color: var(--paper);
     }
     @keyframes gate-backdrop-clear {
       0%, 42% { background-color: rgba(19,43,37,.97); }
@@ -1696,34 +1714,34 @@
     .language-initials { white-space: nowrap; }
     .language-initials span { color: var(--paper); }
     .language-panel .section-label { margin-bottom: 16px; color: var(--coral); font-size: 13px; letter-spacing: .15em; }
-    .language-panel h1 { margin: 0 0 14px; font: 400 clamp(34px, 8vw, 48px)/1.2 var(--serif); color: var(--forest-deep); }
-    .language-panel > p:not(.section-label) { margin: 0 0 36px; color: var(--ink); font-size: 17px; line-height: 1.7; }
+    .language-panel h1 { margin: 0 0 14px; font: 400 clamp(34px, 8vw, 48px)/1.2 var(--serif); color: var(--paper); }
+    .language-panel > p:not(.section-label) { margin: 0 0 36px; color: rgba(255,253,247,.8); font-size: 17px; line-height: 1.7; }
     .language-options { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     .language-choice {
       position: relative;
       min-height: 84px;
-      border: 2px solid rgba(36,53,47,.2);
+      border: 2px solid rgba(229,180,120,.3);
       border-radius: 16px;
-      background: var(--paper);
-      color: var(--forest-deep);
+      background: rgba(255,253,248,.1);
+      color: var(--paper);
       cursor: pointer;
       font-size: 18px;
       font-weight: 600;
       padding: 16px 12px;
       transition: transform .3s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease;
     }
-    .language-choice span { display: block; margin-top: 6px; color: var(--muted); font-size: 13px; font-weight: 400; }
+    .language-choice span { display: block; margin-top: 6px; color: rgba(255,253,247,.6); font-size: 13px; font-weight: 400; }
     .language-choice:hover, .language-choice:focus-visible {
       transform: translateY(-4px);
       border-color: var(--coral);
-      background: linear-gradient(135deg, #fffdf7, #fff8eb);
+      background: rgba(229,180,120,.15);
       box-shadow: 0 16px 32px rgba(183,97,76,.2);
       outline: none;
     }
     .language-choice.is-selected {
       border-color: var(--coral);
-      background: linear-gradient(135deg, #fff8eb, #fff0d6);
-      box-shadow: 0 0 0 3px rgba(183,97,76,.15), 0 8px 24px rgba(183,97,76,.15);
+      background: linear-gradient(135deg, rgba(183,97,76,.25), rgba(217,152,85,.15));
+      box-shadow: 0 0 0 3px rgba(183,97,76,.25), 0 8px 24px rgba(183,97,76,.2);
     }
     .language-choice:first-child::before, .language-choice:last-child::before {
       display: block;
@@ -1735,7 +1753,7 @@
     .language-choice:last-child::before { content: "ಅ"; }
     .language-screen[hidden] { display: none; }
     .language-steps { display: flex; justify-content: center; gap: 10px; margin: 0 auto 32px; }
-    .language-steps span { width: 30px; height: 3px; border-radius: 2px; background: rgba(36,53,47,.15); transition: width .45s ease, background .45s ease; }
+    .language-steps span { width: 30px; height: 3px; border-radius: 2px; background: rgba(255,253,247,.15); transition: width .45s ease, background .45s ease; }
     .language-steps span.is-active { width: 60px; background: linear-gradient(90deg, var(--coral), var(--saffron)); }
     .gate-open {
       display: grid;
@@ -2107,27 +2125,23 @@
       .event-card h3 { margin: 14px 0 12px; font-size: 28px; line-height: 1.25; }
       .event-card p { margin-bottom: 16px; font-size: 14px; line-height: 1.7; }
       .event-card .event-time {
-        display: inline-flex;
+        display: flex;
+        flex-direction: column;
         align-items: center;
-        gap: 8px;
+        gap: 4px;
         margin-top: auto;
-        padding: 14px 20px;
+        padding: 18px 24px;
         background: linear-gradient(135deg, var(--coral), #c45a3d);
         color: var(--paper) !important;
-        font-size: 13px !important;
-        font-weight: 700;
-        letter-spacing: .04em;
-        border-radius: 50px;
+        border-radius: 16px;
         box-shadow: 0 6px 20px rgba(183,97,76,.35);
-        text-transform: none;
         width: fit-content;
         margin-left: 0;
         margin-right: auto;
       }
-      .event-card .event-time::before {
-        content: "⏰";
-        font-size: 15px;
-      }
+      .event-time-label { font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; opacity: .9; }
+      .event-time-value { font-size: 17px; font-weight: 800; letter-spacing: .02em; line-height: 1.2; }
+      .event-card .event-time::before { display: none; }
       .event-card::after {
         position: absolute;
         top: 16px;
@@ -2193,6 +2207,7 @@
       html[lang="kn"] .hero-family span { font-size: 9px; }
       html[lang="kn"] .hero-date { font-size: 11px; }
       html[lang="kn"] .hero-actions .button { font-size: 14px; }
+      html[lang="kn"] .hero-next { font-size: 14px; }
       html[lang="kn"] .hero-next-label { font-size: 20px; }
       html[lang="kn"] .journey-copy h3 { font-size: clamp(28px, 8vw, 39px); }
       html[lang="kn"] .event-card h3 { font-size: 22px; }
@@ -2216,6 +2231,8 @@
       .language-options { gap: 8px; }
       .language-choice { font-size: 14px; }
       .language-choice span { font-size: 10px; }
+      html[lang="kn"] .hero-actions .button { font-size: 12px; }
+      html[lang="kn"] .hero-next-label { font-size: 17px; }
     }
     .tower-art {
       perspective: 1300px;
@@ -2405,7 +2422,9 @@
     .journey-copy p { font-size: 17px; }
     .journey-image figcaption { font-size: 15px; }
     .event-card p { font-size: 14px; }
-    .event-card .event-time { font-size: 11px !important; }
+    .event-card .event-time { padding: 16px 24px; min-width: 180px; }
+    .event-time-label { font-size: 9px; }
+    .event-time-value { font-size: 16px; }
     .event-note { font-size: 14px; }
     .venue-map-label { font-size: 9px; }
     .venue-landmark span { font-size: 11px; }
@@ -2428,13 +2447,16 @@
       .journey-copy p { font-size: 15px; }
       .journey-image figcaption { font-size: 14px; }
       .event-card p { font-size: 14px; }
-      .event-card .event-time { font-size: 13px !important; }
+      .event-card .event-time { font-size: 13px !important; padding: 18px 28px; min-width: 190px; }
+      .event-time-label { font-size: 10px; }
+      .event-time-value { font-size: 19px; }
       .venue-copy .section-label, .venue-address span { font-size: 10px; }
       .gallery-caption { font-size: 16px; }
       html[lang="kn"] .hero-date { font-size: 10px; }
       html[lang="kn"] .hero-family p { font-size: 11.5px; }
       html[lang="kn"] .hero-family span { font-size: 8.5px; }
-      html[lang="kn"] .event-card .event-time { font-size: 12px !important; }
+      html[lang="kn"] .event-time-label { font-size: 10px; }
+      html[lang="kn"] .event-time-value { font-size: 18px; }
     }
     @media (max-width: 380px) {
       .hero h1 { font-size: clamp(40px, 11vw, 48px); font-weight: 800; }
@@ -2554,7 +2576,9 @@
       .event-index { font-size: 11px; }
       .event-card h3 { font-size: 27px; }
       .event-card p { font-size: 14px; line-height: 1.7; }
-      .event-card .event-time { font-size: 10px !important; letter-spacing: .08em; }
+      .event-card .event-time { padding: 16px 24px; min-width: 170px; }
+      .event-time-label { font-size: 9px; }
+      .event-time-value { font-size: 15px; }
       .countdown h2 { font-size: 34px; }
       .timer-label { font-size: 9px; letter-spacing: .08em; }
       .timer-message { font-size: 15px; }
@@ -2571,7 +2595,9 @@
       .hero-invocation { font-size: 13px; }
       .hero-date { font-size: 9px; }
       .hero-family p { font-size: 11px; }
-      .event-card .event-time { font-size: 9px !important; }
+      .event-card .event-time { padding: 14px 20px; min-width: 150px; }
+      .event-time-label { font-size: 8px; }
+      .event-time-value { font-size: 13px; }
     }
     body {
       position: relative;
@@ -2961,13 +2987,19 @@
             <span class="event-index" data-i18n="weddingIndex">01 / MORNING</span>
             <h3 data-i18n="weddingTitle">Dhare</h3>
             <p data-i18n="weddingCopy">We warmly invite you to join us for the Dhare ceremony and bless us on this auspicious occasion. Your presence will mean a lot to our families.</p>
-            <p class="event-time" data-i18n="weddingTime">Sunday · 6 December · 10:00 AM – 10:45 AM</p>
+            <div class="event-time">
+              <span class="event-time-label" data-i18n="weddingTimeLabel">Muhurtham</span>
+              <span class="event-time-value" data-i18n="weddingTimeValue">10:00 AM – 10:45 AM</span>
+            </div>
           </article>
           <article class="event-card" data-reveal data-delay="1" data-scroll-depth="1">
             <span class="event-index" data-i18n="receptionIndex">02 / RECEPTION</span>
             <h3 data-i18n="receptionTitle">Wedding Reception</h3>
             <p data-i18n="receptionCopy">We would be delighted to have you join us for the wedding reception. Please come and share your good wishes and celebrate this happy occasion with our families.</p>
-            <p class="event-time" data-i18n="receptionTime">Sunday · 6 December · 7:00 PM Onwards</p>
+            <div class="event-time">
+              <span class="event-time-label" data-i18n="receptionTimeLabel">Reception</span>
+              <span class="event-time-value" data-i18n="receptionTimeValue">7:00 PM Onwards</span>
+            </div>
           </article>
         </div>
         <a class="event-note venue-link" data-reveal href="https://maps.app.goo.gl/w9jPKg6dWV5pq2Ly7" target="_blank" rel="noreferrer">
@@ -3072,10 +3104,10 @@
         eventDate: "Sunday · 6 December 2026", eventsTitle: "The Wedding <em>Celebrations</em>",
         weddingIndex: "01 / MORNING", weddingTitle: "Dhare",
         weddingCopy: "We warmly invite you to join us for the Dhare ceremony and bless us on this auspicious occasion. Your presence will mean a lot to our families.",
-        weddingTime: "Sunday · 6 December · 10:00 AM – 10:45 AM",
+        weddingTimeLabel: "Muhurtham", weddingTimeValue: "10:00 AM – 10:45 AM",
         receptionIndex: "02 / RECEPTION", receptionTitle: "Wedding Reception",
         receptionCopy: "We would be delighted to have you join us for the wedding reception. Please come and share your good wishes and celebrate this happy occasion with our families.",
-        receptionTime: "Sunday · 6 December · 7:00 PM Onwards",
+        receptionTimeLabel: "Reception", receptionTimeValue: "7:00 PM Onwards",
         venueName: "Manjunatha Samudaya Bhavan", venueDirections: "Srirangapatna · Get directions ↗",
         venueArea: "Srirangapatna, Karnataka", venueMapLabel: "Our Celebration Venue", venueLandmarkLabel: "Srirangapatna, Karnataka", venueOpenMap: "Get Directions",
         countdownLabel: "Counting Down to Our Special Day", countdownTitle: "6 December 2026",
@@ -3134,10 +3166,10 @@
         eventDate: "ಭಾನುವಾರ · 6 ಡಿಸೆಂಬರ್ 2026", eventsTitle: "ವಿವಾಹದ <em>ಸಂಭ್ರಮ</em>",
         weddingIndex: "01 / ಬೆಳಿಗ್ಗೆ", weddingTitle: "ಧಾರೆ",
         weddingCopy: "ನಮ್ಮ ಧಾರೆ ಸಮಾರಂಭಕ್ಕೆ ತಾವು ಆಗಮಿಸಿ, ನಿಮ್ಮ ಆಶೀರ್ವಾದದೊಂದಿಗೆ ಈ ಶುಭ ಸಂದರ್ಭದಲ್ಲಿ ನಮ್ಮ ಸಂತೋಷವನ್ನು ಹೆಚ್ಚಿಸಬೇಕಾಗಿ ಪ್ರೀತಿಯಿಂದ ಆಹ್ವಾನಿಸುತ್ತೇವೆ.",
-        weddingTime: "ಭಾನುವಾರ · 6 ಡಿಸೆಂಬರ್ · ಬೆಳಿಗ್ಗೆ 10:00 – 10:45",
+        weddingTimeLabel: "ಮುಹೂರ್ತಂ", weddingTimeValue: "ಬೆಳಿಗ್ಗೆ 10:00 – 10:45",
         receptionIndex: "02 / ಸಂಜೆ", receptionTitle: "ವಿವಾಹ ಆರತಕ್ಷತೆ",
         receptionCopy: "ನಮ್ಮ ವಿವಾಹ ಆರತಕ್ಷತೆ ಸಮಾರಂಭಕ್ಕೆ ತಾವು ಆಗಮಿಸಿ, ನಮ್ಮ ಹೊಸ ಜೀವನಕ್ಕೆ ಶುಭ ಹಾರೈಸಿ, ನಮ್ಮ ಕುಟುಂಬಗಳ ಸಂತೋಷದಲ್ಲಿ ಪಾಲ್ಗೊಳ್ಳಬೇಕಾಗಿ ಆತ್ಮೀಯವಾಗಿ ಆಹ್ವಾನಿಸುತ್ತೇವೆ.",
-        receptionTime: "ಭಾನುವಾರ · 6 ಡಿಸೆಂಬರ್ · ರಾತ್ರಿ 7:00 ಮುಂದೆ",
+        receptionTimeLabel: "ಆರತಕ್ಷತೆ", receptionTimeValue: "ರಾತ್ರಿ 7:00 ಮುಂದೆ",
         venueName: "ಮಂಜುನಾಥ ಸಮುದಾಯ ಭವನ", venueDirections: "ಶ್ರೀರಂಗಪಟ್ಟಣ · ದಾರಿ ನೋಡಿ ↗",
         venueArea: "ಶ್ರೀರಂಗಪಟ್ಟಣ, ಕರ್ನಾಟಕ", venueMapLabel: "ನಮ್ಮ ಸಮಾರಂಭದ ಸ್ಥಳ", venueLandmarkLabel: "ಶ್ರೀರಂಗಪಟ್ಟಣ, ಕರ್ನಾಟಕ", venueOpenMap: "ದಾರಿ ನೋಡಿ",
         countdownLabel: "ಶುಭ ದಿನದ ಕ್ಷಣಗಣನೆ", countdownTitle: "6 ಡಿಸೆಂಬರ್ 2026",
